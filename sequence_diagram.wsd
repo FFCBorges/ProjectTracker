@@ -1,0 +1,9 @@
+@startuml
+
+Cliente -> Software: Procura o projeto por id
+Software -> Database: Procura por projeto
+Software <-- Database: Retorna o projeto
+Cliente <-- Software: Retorna o projeto
+Cliente -> Software: Procura informações relacionadas com o tempo
+Cliente <-- Software: Retorna as informações
+@enduml
