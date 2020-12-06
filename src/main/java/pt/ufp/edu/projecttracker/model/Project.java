@@ -33,6 +33,8 @@ public class Project {
     private ProjectManager projectManager;
 
     @ToString.Include
+    @Enumerated
+    @Column(nullable = false, columnDefinition = "smallint")
     ProjectState projectState = ProjectState.ONGOING_PLANNING;
 
 

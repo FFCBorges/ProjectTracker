@@ -18,7 +18,9 @@ import java.util.List;
 @DiscriminatorColumn(name="Role", discriminatorType = DiscriminatorType.STRING)
 public class Employee extends User {
 
-    @Column (nullable = false)
+
+    @Enumerated
+    @Column(nullable = false, columnDefinition = "smallint")
     private Role role;
 
     @OneToMany(mappedBy = "employee")
