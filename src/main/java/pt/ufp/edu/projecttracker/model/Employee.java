@@ -14,7 +14,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Role", discriminatorType = DiscriminatorType.STRING)
 public class Employee extends User {
 
@@ -24,7 +23,7 @@ public class Employee extends User {
     private Role role;
 
     @OneToMany(mappedBy = "employee")
-    private List<TaskAsPlanned> plannedTasks = new ArrayList<>();
+    private List<TaskAsPlanned> tasks = new ArrayList<>();
 
 
     public Employee(String name, String email, String password, Role role) {
@@ -32,6 +31,7 @@ public class Employee extends User {
         this.role=role;
     }
 
+    //como testar este metodo?
     public int getRoleRate(){
         if(role.equals(Role.JUNIOR_DEVELOPER)){
             return 10;
@@ -48,14 +48,23 @@ public class Employee extends User {
         return -1;
     }
 
+    //como testar este metodo?
+    public TaskAsPlanned getTask(Long taskID){
 
-    public static void main(String[] args) {
-        Employee emp = new Employee("Joao","asdad@gmail.com","WWWWW",Role.JUNIOR_ANALYST);
+        for (TaskAsPlanned task:tasks) {
 
-        System.out.println(emp);
+            if (task.getId().equals(taskID)) return task;
 
+        }
 
+        return null;
     }
+
+    //o método getTasks é criado pelo lombok, como testar?
+
+
+
+
 
 
 

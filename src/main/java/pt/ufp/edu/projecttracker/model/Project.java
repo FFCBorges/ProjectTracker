@@ -44,7 +44,7 @@ public class Project {
     private Client client;
 
     @OneToMany(mappedBy = "project")
-    private List<TaskAsPlanned> taskAsPlanneds = new ArrayList<TaskAsPlanned>();
+    private List<TaskAsPlanned> plannedTasks = new ArrayList<TaskAsPlanned>();
 
 
     public Project(String name, ProjectManager projectManager, Client client){
@@ -61,8 +61,7 @@ public class Project {
 
         this.name = name;
         this.projectManager=projectManager;
-        //substituir por metodo adicionar projecto
-        projectManager.getProjects().add(this);
+        projectManager.addProject(this);
 
     }
 
@@ -72,7 +71,7 @@ public class Project {
     }
 
     public void  addTask(TaskAsPlanned taskAsPlanned){
-        getTaskAsPlanneds().add(taskAsPlanned);
+        getPlannedTasks().add(taskAsPlanned);
         taskAsPlanned.setProject(this);
 
     }

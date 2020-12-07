@@ -35,4 +35,12 @@ public class Client extends User{
         p.setClient(null);
     }
 
+    public Project getProject(String projectName){
+
+        for (Project p: projects) {
+            if(p.getName().equals(projectName)) return p;
+        }
+        return null;
+    }
+
 }

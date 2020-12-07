@@ -16,7 +16,7 @@ public class TaskAsPlanned {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
@@ -44,7 +44,7 @@ public class TaskAsPlanned {
     @OneToOne
     private TaskInExecution taskInExecution;
 
-    public TaskAsPlanned(Integer id, String nome, String desc, Integer horasEstimadas, Double custoPrevisto, Project project) {
+    public TaskAsPlanned(Long id, String nome, String desc, Integer horasEstimadas, Double custoPrevisto, Project project) {
         this.id = id;
         this.nome=nome;
         this.desc=desc;

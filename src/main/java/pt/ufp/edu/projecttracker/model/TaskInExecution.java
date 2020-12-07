@@ -18,7 +18,7 @@ public class TaskInExecution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Long id;
 
     private Integer hoursUsed;
 
