@@ -1,0 +1,108 @@
+package Models {
+
+    class Cliente {
+        +Projecto getProjecto(projectoID)
+        +List Projecto getProjectos()
+        
+
+    }
+
+    class GestorDeProjecto{
+        +Projecto getProjecto(projectoID)
+        +List Projecto getProjectos()
+        ... Altera percentagem de execução tarefa
+
+
+    }
+
+    class Projecto{
+        -projectoID:Int
+        -estado:Boolean
+        +Int getCustoPrevisto() GESTOR E CLIENTE
+        +Int getCustoAtual() GESTOR E CLIENTE
+        +Float getPercentagemDeExecução() GESTOR E CLIENTE
+        +String getTarefas() GESTOR E CLIENTE
+        +Tarefa getTarefa() GESTOR E CLIENTE
+        +Tarefa createTarefa() 
+
+
+    }
+
+    class Tarefa{
+        
+        -tarefaID:Int
+        -percentagemDeExec:Double
+       -horasEstimadas:Int
+       -horasConsumidas:Int
+       -custoPrevisto:Int
+       
+       
+       +Int getHorasEstimadas() GESTOR E CLIENTE
+       +void setHorasEstimadas() GESTOR
+       +Int getHorasConsumidas() GESTOR E CLIENTE
+       +void setHorasConsumidas() GESTOR overide
+       +void addHorasConsumidas() FUNCIONARIO
+       +Int getCustoPrevisto() GESTOR E CLIENTE
+       +void setCustoPrevisto() GESTOR
+       +Funcionario getFuncionario() GESTOR
+       +void setFuncionario(funcionarioID) GESTOR
+       +Double getPercentagemDeExec() GESTOR E CLIENTE
+       +void setPercentagemDeExec() GESTOR
+       +Double getCustoAtual() GESTOR E CLIENTE
+       +Projecto getProjecto()
+       
+    
+
+    }
+
+    class Funcionario{
+
+        + List Tarefa getTarefas()
+        + Tarefa getTarefa()
+        +{abstract} Double getValorHora()
+
+
+    }
+
+    class DesenvolvedorJunior{ 
+
+    }
+
+    class DesenvolvedorSenior{ 
+
+    }
+
+    class AnalistaSenior{ 
+
+    }
+
+    class AnalistaJunior{
+
+    }
+
+    class Vencimento(){
+
+
+    }
+
+    class User {
+        -nome:String
+        -email:String
+        -password:String
+        -id:Int
+
+    }
+
+
+    GestorDeProjecto "1" --- "0...*" Projecto
+    Funcionario "1" --- "0...*" Tarefa
+    Projecto "1" --- "0...*" Tarefa
+    Cliente "0...1" --- "0...*" Projecto
+    Funcionario <|--- DesenvolvedorJunior
+    Funcionario <|--- AnalistaJunior
+    Funcionario <|--- DesenvolvedorSenior
+    Funcionario <|--- AnalistaSenior
+    User <|--- GestorDeProjecto
+    User <|--- Cliente
+    User <|--- Funcionario
+}

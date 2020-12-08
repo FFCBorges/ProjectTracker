@@ -1,0 +1,20 @@
+@startuml
+hide empty description
+[*] --> ONGOING_PLANNING : Project Creation
+ONGOING_PLANNING ->ONGOING_EXECUTION : At least one task has\n someone working on it
+ONGOING_PLANNING-->DROPPED : Decision to abandon\n the project altogether
+ONGOING_EXECUTION-->DROPPED:Decision to abandon\n the project altogether
+FINISHED-->[*] : Project Lifecycle\n over
+DROPPED->[*] : Project Lifecycle\n over
+ON_TIME->FINISHED
+DELAYED->FINISHED
+
+ONGOING_EXECUTION->ON_TIME
+
+ONGOING_EXECUTION->DELAYED
+
+ON_TIME-->DELAYED
+DELAYED-->ON_TIME
+
+
+@enduml

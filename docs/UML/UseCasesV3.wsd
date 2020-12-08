@@ -1,0 +1,25 @@
+@startuml ProjectMannager
+left to right direction
+skinparam packageStyle rectangle
+:Gestor de Projecto:
+:Funcionario:
+:Cliente:
+
+rectangle ProjectTracker.pt {
+Funcionario ---> (Visualizar Tarefas)
+Cliente ---> (Consulta Projecto) 
+Funcionario -->(Regista Execucao de Tarefa)
+(Regista Execucao de Tarefa)
+:Gestor de Projecto: ---> (Gere Projecto)
+(Consulta Projecto) <|-- (Consulta por Tempo)
+(Consulta Projecto) <|-- (Consulta por Custo)
+(Consulta Projecto)<|--(Consulta Estado de Projecto)
+(Gere Projecto)<|--(Aloca Funcionario a Tarefa) 
+(Gere Projecto)<|--(Remove Funcionario a Tarefa)
+(Gere Projecto)<|--(Altera Percentagem Tarefa)
+(Gere Projecto)<|--(Cria Tarefa)
+
+(Gere Projecto)<|-(Remove Tarefa) 
+(Gere Projecto)<|--(Consulta Tarefas)
+}
+@enduml
