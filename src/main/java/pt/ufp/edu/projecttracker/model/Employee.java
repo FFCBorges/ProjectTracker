@@ -52,11 +52,8 @@ public class Employee extends User {
     public TaskAsPlanned getTask(Long taskID){
 
         for (TaskAsPlanned task:tasks) {
-
             if (task.getId().equals(taskID)) return task;
-
         }
-
         return null;
     }
 

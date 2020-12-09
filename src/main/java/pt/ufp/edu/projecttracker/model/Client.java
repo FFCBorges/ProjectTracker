@@ -31,7 +31,7 @@ public class Client extends User{
 
 
     public void removeProject(Project p){
-        getProjects().remove(p);
+        this.projects.remove(p);
         p.setClient(null);
     }
 

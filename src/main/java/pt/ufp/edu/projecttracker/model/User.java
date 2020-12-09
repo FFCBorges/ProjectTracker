@@ -11,6 +11,7 @@ import javax.persistence.*;
 @MappedSuperclass
 
 public abstract class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userID;
@@ -30,7 +31,6 @@ public abstract class User {
         this.email = email;
         this.password = password;
     }
-
 
 
 }

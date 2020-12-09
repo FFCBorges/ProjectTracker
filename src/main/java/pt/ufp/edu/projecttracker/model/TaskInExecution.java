@@ -17,12 +17,26 @@ public class TaskInExecution {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private Integer hoursUsed;
+    @Column(nullable = false)
+    private Double executionRate =0d;
 
-    private Double executionRate;
+    @Column(nullable = false)
+    private Integer hoursUsed=0;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private TaskAsPlanned plannedTask;
+
+
+
+    public Integer getCurrentTaskCost(){
+        return this.hoursUsed*this.plannedTask.getRoleRate(this.plannedTask.getEmployeeType());
+
+    }
+
+
 
 
 

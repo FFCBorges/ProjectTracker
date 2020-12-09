@@ -25,7 +25,7 @@ public class ProjectManager extends User{
     }
 
 
- //este método faz sentido?
+
     public Project addProject(Project p){
         p.setProjectManager(this);
         getProjects().add(p);
@@ -34,11 +34,15 @@ public class ProjectManager extends User{
 
 
     public Project getProject(String projectName){
-
         for (Project p: projects) {
             if(p.getName().equals(projectName)) return p;
         }
         return null;
+    }
+
+    public void removeProject(Project p){
+        this.projects.remove(p);
+        p.setProjectManager(null);
     }
 
 
