@@ -1,0 +1,51 @@
+
+Commit 10/12 ffcborges
+
+Changes on the Documentation:
+    State Diagram V3 included
+        -Has in consideration sub states on both Ongoing Execution and Finished Stated
+            -sub states included were regarding time and budget constraints of the project
+              -Time:
+                On_Time
+                Delayed
+              -Budget:
+                On_Budget
+                Under_Budget
+
+
+
+
+
+
+Changes on ProjectManager Class
+
+
+Changes on TaskAsPlanned Class
+    new attributes added:
+        -LocalDate plannedStartDate
+        -LocalDate plannedDueDate
+    new methods added:
+        -onTime():boolean (true is task is on time)
+
+    methods altered:
+    all args constructor now creates the correspondent TaskInExecution (long id, TaskAsPlanned this)
+
+
+Changes on TaskInExecution Class
+    new methods added:
+        -Constructor (Long id, TaskAsPlanned task)
+
+
+Changes on the Project Class
+    new methods added:
+        getStartingDate(): LocalDate
+        getDueDate(): : LocalDate
+        onTime(): boolean (true is all task are on time)
+
+
+
+
+
+
+
+

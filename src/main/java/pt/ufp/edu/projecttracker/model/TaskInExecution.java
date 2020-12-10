@@ -29,12 +29,22 @@ public class TaskInExecution {
     @MapsId
     private TaskAsPlanned plannedTask;
 
-
+    public TaskInExecution(Long id, TaskAsPlanned plannedTask) {
+        this.id = id;
+        this.plannedTask = plannedTask;
+    }
 
     public Integer getCurrentTaskCost(){
         return this.hoursUsed*this.plannedTask.getRoleRate(this.plannedTask.getEmployeeType());
 
     }
+
+
+//    public float taskBudgetDeviation(){
+//        float estimateHours = (float)this.getPlannedTask().getEstimatedHours();
+//
+//
+//    }
 
 
 

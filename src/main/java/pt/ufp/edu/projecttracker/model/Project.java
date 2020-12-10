@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import pt.ufp.edu.projecttracker.exceptions.*;
 
-
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,13 +130,7 @@ public class Project {
     }
 
 
-    /*
-    * - Ongoing Planning                                feito
-    Finished nao pode mudar de estado
-    Planned - Finished
-    Ongoing Planning
 
-            */
     public void setProjectState(ProjectState newState) {
         if(newState.equals(ProjectState.ONGOING_PLANNING)){
             throw new ProjectChangeStateToOngoingPlanning("Either the Ongoing Planning state is over or the planning phase has already ended, cant change state to Ongoing Planning");
@@ -162,7 +156,65 @@ public class Project {
             throw new ProjectChangeStateToDroppedFromFinished("Finished Projects can't be dropped");
         }
 
-
         this.projectState = newState;
     }
+
+
+    /**
+     * This method scans all it's planned tasks
+     * and returns the earliest start date
+     * it assumes the project will starts as
+     * soon as the first Planned Tasks is due to start
+     * @return earliest Planned Task start date
+     */
+    public LocalDate getStartingDate(){
+        LocalDate starting=LocalDate.MAX;
+        for(TaskAsPlanned t:this.plannedTasks) {
+            if(t.getPlannedStartDate().isBefore(starting)){
+                starting=t.getPlannedStartDate();
+            }
+        }
+        return starting;
+    }
+
+    /**
+     * This method scans all it's planned tasks
+     * and returns the latest due date
+     * it assumes the project is due when
+     * the latest Planned Tasks is due
+     * @return latest Planned Task due date
+     */
+    public LocalDate getDueDate(){
+        LocalDate due=LocalDate.MIN;
+        for(TaskAsPlanned t:this.plannedTasks) {
+            if(t.getPlannedDueDate().isAfter(due)){
+               due=t.getPlannedDueDate();
+            }
+        }
+        return due;
+    }
+
+    /**
+     * This method evaluates if the execution is keeping up with
+     * the time frame of the project
+     * @return true if all tasks are being executed according
+     * to planning time wise false if not
+     * true if all planned tasks:
+     * (%execution >= (elapsed time since start / (due date time - start date time)))
+     * false if:
+     * else
+     */
+    public boolean onTime(){
+        for(TaskAsPlanned t:this.plannedTasks){
+            if (!t.onTime()) return false;
+        }
+        return true;
+    }
+
+
+//    public long projectBudgetDeviation(){
+//
+//
+//    }
+
 }

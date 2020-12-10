@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -26,9 +28,7 @@ public class TaskAsPlanned {
 
 
     @Column(nullable = false)
-    private Integer horasEstimadas;
-
-
+    private Integer estimatedHours;
 
     @Enumerated
     @Column(nullable = false, columnDefinition = "smallint")
@@ -40,31 +40,37 @@ public class TaskAsPlanned {
     @ManyToOne
     private Employee employee;
 
+    private LocalDate plannedStartDate;
+
+    private LocalDate plannedDueDate;
+
 
 
     @OneToOne(mappedBy = "plannedTask", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private TaskInExecution taskInExecution;
 
-    public TaskAsPlanned(Long id, String title, String desc, Integer horasEstimadas, Project project, Role employeeType) {
+    public TaskAsPlanned(Long id, String title, String desc, Integer estimatedHours, Project project, Role employeeType) {
         this.id = id;
         this.title = title;
         this.description=desc;
-        this.horasEstimadas = horasEstimadas;
+        this.estimatedHours = estimatedHours;
         this.project = project;
         this.employeeType=employeeType;
+        this.taskInExecution = new TaskInExecution(this.id,this);
         project.addTask(this);
+
 
     }
 
-    public TaskAsPlanned(String title, String desc, Integer horasEstimadas, Double custoPrevisto) {
+    public TaskAsPlanned(String title, String desc, Integer estimatedHours, Double custoPrevisto) {
         this.title = title;
         this.description=desc;
-        this.horasEstimadas = horasEstimadas;
+        this.estimatedHours = estimatedHours;
 
     }
 
     public Integer getEstimatedTaskCost(){
-        return this.horasEstimadas*getRoleRate(this.employeeType);
+        return this.estimatedHours *getRoleRate(this.employeeType);
 
     }
 
@@ -98,6 +104,28 @@ public class TaskAsPlanned {
             return this.taskInExecution.getExecutionRate();
         }
         return 0d;
+    }
+
+
+    /**
+     * This method evaluates if a Task is being executed
+     * on schedule or not
+     * @return true if: %execution >= (elapsed time since start / (due date time - start date time)))
+     * else return false
+     */
+    public boolean onTime(){
+        LocalDate now = LocalDate.now();
+
+        if(now.isAfter(this.plannedStartDate)) {
+            long elapsedDays = ChronoUnit.DAYS.between(this.plannedStartDate, now);
+            long daysToDoTheTask = ChronoUnit.DAYS.between(this.plannedStartDate, this.plannedDueDate);
+            if((this.taskInExecution.getExecutionRate()/100)>=(elapsedDays/daysToDoTheTask)){
+                return true;
+            }
+            return false;
+        }
+
+        return true;
     }
 
 
