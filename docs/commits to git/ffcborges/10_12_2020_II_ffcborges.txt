@@ -1,0 +1,33 @@
+
+Commit 10/12 ffcborges
+
+
+
+
+Changes on ProjectManager Class
+
+
+Changes on TaskAsPlanned Class
+    new attributes added:
+
+    new methods added:
+
+    methods altered:
+    all args constructor now creates the correspondent TaskInExecution (long id, TaskAsPlanned this)
+
+
+Changes on TaskInExecution Class
+    new methods added:
+
+
+Changes on the Project Class
+    new methods added:
+
+
+
+
+
+
+
+
+

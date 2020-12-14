@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -29,8 +31,9 @@ public class TaskInExecution {
     @MapsId
     private TaskAsPlanned plannedTask;
 
-    public TaskInExecution(Long id, TaskAsPlanned plannedTask) {
-        this.id = id;
+    private LocalDate finishedBy;
+
+    public TaskInExecution(TaskAsPlanned plannedTask) {
         this.plannedTask = plannedTask;
     }
 
@@ -39,8 +42,60 @@ public class TaskInExecution {
 
     }
 
+    public LocalDate getPlannedStartDate(){
+        return this.getPlannedTask().getPlannedStartDate();
+    }
 
-//    public float taskBudgetDeviation(){
+    public LocalDate getPlannedDueDate(){
+        return this.getPlannedTask().getPlannedDueDate();
+    }
+
+    public boolean onTime(){
+        LocalDate date = LocalDate.now();
+        return onTimeLogic(date);
+
+    }
+
+    public boolean onTime(LocalDate date){
+       return onTimeLogic(date);
+    }
+
+
+    private boolean onTimeLogic(LocalDate date ){
+        if(date.isAfter(getPlannedDueDate())){
+            if(this.executionRate==1d) return true;
+            else return false;
+        }
+        //Se a data calha antes do inicio da tarefa retorna verdade
+        if(date.isBefore(getPlannedStartDate())){
+            return true;
+        }
+
+        //caso contrario a data calha a meio das datas da tarefa
+
+        double taskTimeFrame = ChronoUnit.DAYS.between(getPlannedStartDate(),getPlannedDueDate());
+        double elapsedTime = ChronoUnit.DAYS.between(getPlannedStartDate(),date);
+
+        if(this.executionRate<(elapsedTime/taskTimeFrame)) return false;
+        else return true;
+
+    }
+
+    public void setExecutionRate(Double executionRate) {
+        if(executionRate==1d) {
+            this.finishedBy=LocalDate.now();
+            this.executionRate = executionRate;
+        }
+    }
+
+    public void setExecutionRate(Double executionRate, LocalDate finishedBy) {
+        if(executionRate==1d) {
+            this.finishedBy=finishedBy;
+            this.executionRate = executionRate;
+        }
+    }
+
+    //    public float taskBudgetDeviation(){
 //        float estimateHours = (float)this.getPlannedTask().getEstimatedHours();
 //
 //

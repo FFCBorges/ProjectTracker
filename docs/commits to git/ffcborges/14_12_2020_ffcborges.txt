@@ -1,0 +1,65 @@
+
+Commit 14/12 ffcborges
+
+
+-----------Models-------------------------
+
+Changes on TaskAsPlanned Class
+    
+   new methods added:
+   	onTime():boolean
+   	onTime(date: Localdate):boolean
+
+
+   	
+Changes on TaskInExecution Class
+   
+   new attributes added:
+   	finishedBy: LocalDate (Date at wich the task was finished)
+   
+   new methods added:
+   	getPlannedStartDate():LocalDate
+   	getPlannedDueDate():LocalDate
+   	onTime():boolean
+   	onTime(date: Localdate):boolean
+   	onTimeLogic(date: LocalDate)
+   	setExecutionRate(executionRate:double)
+   	setExecutionRate(executionRate:double, finishedBy:LocalDate)
+
+
+
+Changes on the Project Class
+	methods update:
+		setProjectState(newState:ProjectState)
+    new methods added:
+    	onTime(date:LocalDate):boolean
+    	onTime():boolean
+    	onTimeLogic(date: LocalDate):boolean
+
+
+
+-------------Models Tests---------------------
+
+TaskInExecutionTest
+	cration of file
+	test method for onTime();
+
+
+
+
+----------Repositories--------------
+
+
+ProjectManagerRepository:
+	getProjectByEmail(email:String):ProjectManager
+	findProjectManagerByEmail(email:String): ProjectManager
+
+
+----------Repositories Tests------------------
+
+ProjectManagerRepositoryTest:
+	testGetProjectByEmail()
+	testFindProjectManagerByEmail()
+
+
+

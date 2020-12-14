@@ -129,9 +129,16 @@ public class Project {
 
     }
 
-
+    /**
+     * This method alters the state of a given project
+     * @param newState the state to put a given Project on
+     *
+     * n.b. some state changes are not allowed depending
+     *      on the current project state
+     */
 
     public void setProjectState(ProjectState newState) {
+        if(newState.equals(this.projectState)) return;
         if(newState.equals(ProjectState.ONGOING_PLANNING)){
             throw new ProjectChangeStateToOngoingPlanning("Either the Ongoing Planning state is over or the planning phase has already ended, cant change state to Ongoing Planning");
         }
@@ -148,7 +155,7 @@ public class Project {
             throw new ProjectChangeStateToFinished("A Project needs it's state to be Ongoing Execution in order for it's state to be changed to finished");
         }
 
-        else if(newState.equals(ProjectState.FINISHED) && this.getProjectExecutionRate()!=100d){
+        else if(newState.equals(ProjectState.FINISHED) && this.getProjectExecutionRate()!=1d){
             throw new ProjectChangeStateToFinishedWithUnfinishedTasks( "Tasks need to be completed in order to classify the Project as Finished");
         }
 
@@ -194,23 +201,71 @@ public class Project {
         return due;
     }
 
+
     /**
      * This method evaluates if the execution is keeping up with
      * the time frame of the project
      * @return true if all tasks are being executed according
-     * to planning time wise false if not
-     * true if all planned tasks:
-     * (%execution >= (elapsed time since start / (due date time - start date time)))
-     * false if:
-     * else
+     * to planning (time wise) false otherwise
+     *
      */
-    public boolean onTime(){
-        for(TaskAsPlanned t:this.plannedTasks){
-            if (!t.onTime()) return false;
-        }
-        return true;
+
+
+    public boolean onTime(LocalDate date){
+        return onTimeLogic(date);
     }
 
+    public boolean onTime(){
+        return onTimeLogic(LocalDate.now());
+    }
+
+    private boolean onTimeLogic(LocalDate date) {
+        if(this.projectState.equals(ProjectState.PLANNED)||this.projectState.equals(ProjectState.ONGOING_PLANNING)) return true;
+        else if(this.projectState.equals(ProjectState.ONGOING_EXECUTION)) {
+            for (TaskAsPlanned t : this.plannedTasks) {
+                if (!t.onTime(date)) return false;
+            }
+            return true;
+        }
+        else if(this.projectState.equals(ProjectState.FINISHED)){
+            LocalDate projectDueDate = this.getDueDate();
+            for (TaskAsPlanned t : this.plannedTasks) {
+                if(t.getTaskInExecution().getFinishedBy().isAfter(projectDueDate)) return false;
+
+            }
+            return true;
+        }
+
+        throw new IllegalStateException("There is no such evaluation for Dropped Projects");
+    }
+
+
+    public boolean onBudget(){
+
+        if(this.getProjectState().equals(ProjectState.ONGOING_EXECUTION)){
+            double executionRate = this.getProjectExecutionRate();
+            int currentCost = this.getCurrentProjectCost();
+            int estimatedCost = this.getEstimatedProjectCost();
+            double shareOfSpentBudget = ((double)currentCost)/estimatedCost;
+            if(executionRate>=shareOfSpentBudget){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if(this.getProjectState().equals(ProjectState.FINISHED)){
+            if(this.getEstimatedProjectCost()>=this.getCurrentProjectCost()) return true;
+            else return false;
+        }
+
+        throw new ProjectStateNotInExecutionOrFinished("Cannot check Budget of projects not undergoing Execution or already Finished ");
+
+    }
+
+    public void setProjectToPlanned() {
+        this.setProjectState(ProjectState.PLANNED);
+    }
 
 //    public long projectBudgetDeviation(){
 //

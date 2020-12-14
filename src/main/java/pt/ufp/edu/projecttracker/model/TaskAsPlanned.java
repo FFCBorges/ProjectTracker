@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -49,20 +48,28 @@ public class TaskAsPlanned {
     @OneToOne(mappedBy = "plannedTask", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private TaskInExecution taskInExecution;
 
-    public TaskAsPlanned(Long id, String title, String desc, Integer estimatedHours, Project project, Role employeeType) {
-        this.id = id;
+
+    public TaskAsPlanned(Integer estimatedHours, Role employeeType, Project project, LocalDate plannedStartDate, LocalDate plannedDueDate) {
+        this.estimatedHours = estimatedHours;
+        this.employeeType = employeeType;
+        this.project = project;
+        this.plannedStartDate = plannedStartDate;
+        this.plannedDueDate = plannedDueDate;
+        this.taskInExecution= new TaskInExecution(this);
+    }
+
+    public TaskAsPlanned(String title, String desc, Integer estimatedHours, Project project, Role employeeType) {
         this.title = title;
         this.description=desc;
         this.estimatedHours = estimatedHours;
         this.project = project;
         this.employeeType=employeeType;
-        this.taskInExecution = new TaskInExecution(this.id,this);
         project.addTask(this);
 
 
     }
 
-    public TaskAsPlanned(String title, String desc, Integer estimatedHours, Double custoPrevisto) {
+    public TaskAsPlanned(String title, String desc, Integer estimatedHours) {
         this.title = title;
         this.description=desc;
         this.estimatedHours = estimatedHours;
@@ -114,18 +121,11 @@ public class TaskAsPlanned {
      * else return false
      */
     public boolean onTime(){
-        LocalDate now = LocalDate.now();
+        return this.getTaskInExecution().onTime();
+    }
 
-        if(now.isAfter(this.plannedStartDate)) {
-            long elapsedDays = ChronoUnit.DAYS.between(this.plannedStartDate, now);
-            long daysToDoTheTask = ChronoUnit.DAYS.between(this.plannedStartDate, this.plannedDueDate);
-            if((this.taskInExecution.getExecutionRate()/100)>=(elapsedDays/daysToDoTheTask)){
-                return true;
-            }
-            return false;
-        }
-
-        return true;
+    public boolean onTime(LocalDate date){
+        return this.getTaskInExecution().onTime(date);
     }
 
 
