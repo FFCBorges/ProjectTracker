@@ -1,0 +1,83 @@
+
+Commit 1  20/12 ffcborges
+
+----------- D.T.Os. ---------------
+
+Creation of several request DTOs, namely:
+
+    ClientDTO.java
+    EmployeeDTO.java
+    ProjectDTO.java
+    ProjectManagerDTO.java
+    TaskAsPlannedDTO.java
+    TaskInExecutionDTO.java
+
+
+------------- Controllers -----------
+
+Creation of several Controllers, namely:
+
+     ClientController.java
+     EmployeeController.java
+     ProjectController.java
+     ProjectManagerController.java
+     TaskAsPlannedController.java
+     TaskInExecutionController.java
+
+Within these controllers the following Endpoints can be found:
+
+    POST/client
+    POST/manager
+    POST/project
+    POST/employee
+    POST/taskaskplanned
+    POST/taskinexecution
+    GET/manager/{id}
+    GET/manager/  (retrieves all managers)
+
+
+------------- Services -----------
+
+Creation of several Services, namely:
+
+     ClientService.java
+     EmployeeService.java
+     ProjectService.java
+     ProjectManagerService.java
+     TaskAsPlannedService.java
+     TaskInExecutionService.java
+
+
+
+
+
+------------- Exceptions -------------
+
+Creation of EntityNotFoundOnDB.Java
+this exception occurs when the user requests
+a get method and there is nothing to get from the DB
+
+
+
+-----------Models-------------------------
+
+Changes on User Class:
+    the email attribute is now unique
+
+Changes on Employee Class:
+    some annotations where removed
+
+
+
+----------Repositories--------------
+
+Creation of the following repositories:
+
+    EmployeeRepository.java
+    ProjectManagerRepository.java
+    TaskInExecution.java
+
+
+
+
+

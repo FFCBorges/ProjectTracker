@@ -14,7 +14,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-@DiscriminatorColumn(name="Role", discriminatorType = DiscriminatorType.STRING)
 public class Employee extends User {
 
 

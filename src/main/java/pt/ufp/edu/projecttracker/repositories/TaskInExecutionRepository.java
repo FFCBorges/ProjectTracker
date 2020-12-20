@@ -2,10 +2,8 @@ package pt.ufp.edu.projecttracker.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pt.ufp.edu.projecttracker.model.Employee;
+import pt.ufp.edu.projecttracker.model.TaskInExecution;
 
 @Repository
-public interface EmployeeRepository extends CrudRepository<Employee, Long > {
-
-
+public interface TaskInExecutionRepository extends CrudRepository<TaskInExecution, Long> {
 }

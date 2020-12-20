@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode( onlyExplicitlyIncluded = true)
 @MappedSuperclass
-
 public abstract class User {
 
     @Id
@@ -20,7 +19,7 @@ public abstract class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)

@@ -1,0 +1,46 @@
+
+Commit 9/12 ffcborges
+
+Included Documentation Folder containing:
+	SRS
+	Class Diagram
+	State Diagram For Project Object
+	USe Cases
+
+
+
+Creation of Project State Change exceptions
+Creation of execption not to allow inclusion of new tasks if the project is already ongoing execution
+
+Changes on the Project Class
+	Attribute Description was included
+	Severall Methods added:
+		getEstimatedPRojectCost
+		getProjectExecutionRate
+		setProjectState (with the above mentioned execptions)
+
+
+Changes on ProjectManager Class
+	added method removeProject
+
+Changes on TaskAsPlanned Class
+	added attributes:
+		employeeType
+	added new methods:
+		getEstimatedCost
+		getRoleRate
+		getCurrentTaskCost
+		getTastExecutionRate
+
+
+Changes on TaskInExecution
+	added attributes:
+		executionRate
+		hoursUsed
+		plannedTask
+	added method:
+		getCurrentTaskCost
+
+
+
+

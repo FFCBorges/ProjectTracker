@@ -95,6 +95,12 @@ public class TaskInExecution {
         }
     }
 
+    /*ToDo
+    * Set FinishedBy in a way you cant set it if the task is not finished
+    *
+    *
+    * */
+
     //    public float taskBudgetDeviation(){
 //        float estimateHours = (float)this.getPlannedTask().getEstimatedHours();
 //

@@ -13,4 +13,7 @@ ProjectManager getProjectManagerByEmail(String email);
 @Query(value = "SELECT pm from ProjectManager as pm WHERE pm.email=:email")
 ProjectManager findProjectManagerByEmail(String email);
 
+
+
+
 }
