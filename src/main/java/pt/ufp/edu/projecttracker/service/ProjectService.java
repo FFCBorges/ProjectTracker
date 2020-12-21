@@ -4,6 +4,7 @@ package pt.ufp.edu.projecttracker.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pt.ufp.edu.projecttracker.api.request.ProjectDTO;
+import pt.ufp.edu.projecttracker.api.response.ProjectDTOResponse;
 import pt.ufp.edu.projecttracker.exceptions.EntityNotFoundOnDB;
 import pt.ufp.edu.projecttracker.model.Client;
 import pt.ufp.edu.projecttracker.model.Project;
@@ -56,6 +57,23 @@ public class ProjectService {
             return optionalClient.get();
         }
         throw new EntityNotFoundOnDB("Client 404");
+    }
+
+
+    public ProjectDTOResponse getProjectByID(Long id){
+        Optional<Project> optionalProject = projectRepository.findById(id);
+        if(optionalProject.isPresent()){
+            Project project = optionalProject.get();
+            ProjectDTOResponse projectDTO= new ProjectDTOResponse();
+            projectDTO.setName(project.getName());
+            projectDTO.setProjectManagerID(project.getProjectManager().getUserID());
+            projectDTO.setClientID(project.getClient().getUserID());
+            projectDTO.setProjectDescription(project.getProjectDesc());
+            projectDTO.setNumberOfTasks(project.numberOfTasks());
+            projectDTO.setState(project.getProjectState());
+            return projectDTO;
+        }
+        return null;
     }
 
 

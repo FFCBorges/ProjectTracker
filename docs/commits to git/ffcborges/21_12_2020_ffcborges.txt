@@ -1,0 +1,53 @@
+
+Commit 1  21/12 ffcborges
+
+----------- D.T.Os. ---------------
+
+Creation of several response DTOs, namely:
+
+
+    ProjectDTOResponse.java
+    ProjectValueDTOResponse.java
+
+
+------------- Controllers -----------
+
+new methods were added to the following controllers:
+
+
+     ProjectController.java
+        getProjectByID(id:Long):ProjectDTOResponse
+
+
+Within these controllers the following Endpoints were added
+to the already existing ones:
+
+    GET/project/{id}
+
+
+------------- Services -----------
+
+new methods were added to the following Services:
+
+
+     ProjectService.java
+        getProjectByID(id:Long):ProjectDTOResponse
+
+
+
+-----------Models-------------------------
+
+Changes on Project:
+    a new method was included to count the
+    number of "PlannedTask"s a Project has.
+
+        numberOfTasks():Integer
+
+
+
+
+
+
+
+
+

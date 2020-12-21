@@ -267,9 +267,10 @@ public class Project {
         this.setProjectState(ProjectState.PLANNED);
     }
 
-//    public long projectBudgetDeviation(){
-//
-//
-//    }
+
+    public Integer numberOfTasks(){
+
+        return this.plannedTasks.size();
+    }
 
 }
