@@ -1,0 +1,49 @@
+
+Commit 1  23/12 ffcborges
+
+----------- D.T.Os. ---------------
+
+Creation of ProjectManagerDTOResponse.java
+
+    This DTO will contain the information of the
+    Project Manager(s) requested by the user,
+    instead of ProjectManagerDTO used previously.
+
+    It will contain name, email, total number of projects
+    and number of projects undergoing execution information
+
+
+------------- Controllers -----------
+
+    ProjectManagerController was updated to use
+    the ProjectManagerDTOResponse.java DTO in GET
+    Requests, instead of ProjectManagerDto as it
+    did previously
+
+
+------------- Services -----------
+
+    ProjectManagerService was updated to use
+    the ProjectManagerDTOResponse.java DTO in GET
+    Requests, instead of ProjectManagerDto as it
+    did previously
+
+
+
+-----------Models-------------------------
+
+Changes on ProjectManager:
+    two new methods were created:
+
+    totalNumberOfProjects():Integer
+    numberOfProjectsInExecution():Integer
+
+
+
+
+
+
+
+
+
+

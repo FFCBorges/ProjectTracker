@@ -3,6 +3,7 @@ package pt.ufp.edu.projecttracker.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pt.ufp.edu.projecttracker.api.request.ProjectManagerDTO;
+import pt.ufp.edu.projecttracker.api.response.ProjectManagerDTOResponse;
 import pt.ufp.edu.projecttracker.service.ProjectManagerService;
 
 import java.util.List;
@@ -29,13 +30,13 @@ public class ProjectManagerController {
 
 
     @GetMapping("/{id}")
-    public ProjectManagerDTO getProjectManagerByID(@PathVariable("id") Long id){
+    public ProjectManagerDTOResponse getProjectManagerByID(@PathVariable("id") Long id){
         return projectManagerService.getProjectManagerByID(id);
 
     }
 
     @GetMapping
-    public List<ProjectManagerDTO> getAllProjectManagers(){
+    public List<ProjectManagerDTOResponse> getAllProjectManagers(){
         return projectManagerService.getAllProjectManagers();
     }
 }

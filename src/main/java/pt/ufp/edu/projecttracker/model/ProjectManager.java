@@ -45,6 +45,22 @@ public class ProjectManager extends User{
         p.setProjectManager(null);
     }
 
+    public Integer totalNumberOfProjects(){
+        return projects.size();
+    }
+
+    public Integer numberOfProjectsInExecution(){
+        Integer count=0;
+        for(Project p:projects){
+            if(p.getProjectState().equals(ProjectState.ONGOING_EXECUTION)){
+                count++;
+            }
+        }
+
+        return count;
+
+    }
+
 
 
 
