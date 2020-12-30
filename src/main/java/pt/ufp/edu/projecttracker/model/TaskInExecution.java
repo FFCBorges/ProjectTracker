@@ -84,8 +84,9 @@ public class TaskInExecution {
     public void setExecutionRate(Double executionRate) {
         if(executionRate==1d) {
             this.finishedBy=LocalDate.now();
-            this.executionRate = executionRate;
         }
+        this.executionRate = executionRate;
+
     }
 
     public void setExecutionRate(Double executionRate, LocalDate finishedBy) {
@@ -93,6 +94,11 @@ public class TaskInExecution {
             this.finishedBy=finishedBy;
             this.executionRate = executionRate;
         }
+    }
+
+    public void setPlannedTask(TaskAsPlanned taskAsPlanned){
+        this.plannedTask=taskAsPlanned;
+        this.id = plannedTask.getId();
     }
 
     /*ToDo

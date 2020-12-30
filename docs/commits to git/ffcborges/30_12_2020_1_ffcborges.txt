@@ -1,0 +1,73 @@
+
+Commit 1  30/12 ffcborges
+
+----------- D.T.Os. ---------------
+
+Creation TaskBindEmployeeDTO.java
+
+    This DTO will contain id of the Employee we wish
+    to allocate to a TaskAsPlanned.
+
+    The id of the task goes on the URL itself
+    on a PATCH request
+
+Update of ProjectValueDTOResponse.java
+
+    changed the data type of some attributes
+    from Integer to Long
+
+
+------------- Controllers -----------
+
+    ProjectController.java
+
+    Included method for GET Request (/project/{id}/value)
+    that return some information regarding costs of the Project
+
+
+    TaskAsPlannedController.java
+
+    small change on the way the path of the requests is defined
+    the path defined for requests is now relative to "/taskasplanned"
+
+    Included a PATCH Request (/taskasplanned/employee/{id})
+    on the method bindTaskToEmployee. this method will allocate said
+    Employee to the TaskAsPlanned and said TaskAsPlanned to said Employee
+
+
+------------- Services -----------
+
+    Methods added to:
+        ProjectService.java
+        TaskAsPlannedService.java
+
+    In order to implement the functionalities described
+    in the "Controllers" section
+
+
+
+
+-----------   Models    ---------------
+
+Small changes were made on some Setter Methods
+on the following Models:
+
+    Employee.java
+    Project.java
+    TaskInExecution.java
+
+
+---------- Other Files ---------------
+
+Creation of a Initialization File "Init.java"
+to populate the DB.
+
+
+
+
+
+
+
+
+
+

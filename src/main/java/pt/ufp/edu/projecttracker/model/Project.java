@@ -273,4 +273,9 @@ public class Project {
         return this.plannedTasks.size();
     }
 
+
+    public void setProjectManager(ProjectManager p){
+        this.projectManager=p;
+    }
+
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pt.ufp.edu.projecttracker.api.request.ProjectDTO;
 import pt.ufp.edu.projecttracker.api.response.ProjectDTOResponse;
+import pt.ufp.edu.projecttracker.api.response.ProjectValueDTOResponse;
 import pt.ufp.edu.projecttracker.exceptions.EntityNotFoundOnDB;
 import pt.ufp.edu.projecttracker.model.Client;
 import pt.ufp.edu.projecttracker.model.Project;
@@ -67,7 +68,7 @@ public class ProjectService {
             ProjectDTOResponse projectDTO= new ProjectDTOResponse();
             projectDTO.setName(project.getName());
             projectDTO.setProjectManagerID(project.getProjectManager().getUserID());
-            projectDTO.setClientID(project.getClient().getUserID());
+            projectDTO.setClientID(project.getClient()==null? null: project.getClient().getUserID());
             projectDTO.setProjectDescription(project.getProjectDesc());
             projectDTO.setNumberOfTasks(project.numberOfTasks());
             projectDTO.setState(project.getProjectState());
@@ -77,5 +78,24 @@ public class ProjectService {
     }
 
 
+    public ProjectValueDTOResponse getProjectValueByID(Long id){
+        Optional<Project> optionalProject = projectRepository.findById(id);
+        if(optionalProject.isPresent()){
+            Project project = optionalProject.get();
+            ProjectValueDTOResponse projectDTO= new ProjectValueDTOResponse();
+            projectDTO.setProjectName(project.getName());
+            projectDTO.setPlannedBudget(project.getEstimatedProjectCost());
+            projectDTO.setExpenditure(project.getCurrentProjectCost());
+            projectDTO.setExecutionRate(project.getProjectExecutionRate());
+            projectDTO.setProjectState(project.getProjectState());
+            if(project.onTime()){
+                projectDTO.setOnTime("On Time");
+            }else{
+                projectDTO.setOnTime("Delayed");
+            }
+            return projectDTO;
+        }
+        return null;
 
+    }
 }

@@ -56,6 +56,11 @@ public class Employee extends User {
         return null;
     }
 
+
+    public void addTask(TaskAsPlanned task){
+        this.tasks.add(task);
+    }
+
     //o método getTasks é criado pelo lombok, como testar?
 
 

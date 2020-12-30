@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pt.ufp.edu.projecttracker.api.request.ProjectDTO;
 import pt.ufp.edu.projecttracker.api.response.ProjectDTOResponse;
+import pt.ufp.edu.projecttracker.api.response.ProjectValueDTOResponse;
 import pt.ufp.edu.projecttracker.service.ProjectService;
 
 import javax.validation.Valid;
@@ -28,11 +29,11 @@ public class ProjectController {
        return projectService.getProjectByID(id);
    }
 
-//   @GetMapping("/{id}/value")
-//   public ProjectValueDTOResponse getProjectValueByID(@PathVariable("id") Long id){
-//        return projectService.getProjectValueByID(id);
-//
-//    }
+   @GetMapping("/{id}/value")
+   public ProjectValueDTOResponse getProjectValueByID(@PathVariable("id") Long id){
+        return projectService.getProjectValueByID(id);
+
+    }
 
 
 }
