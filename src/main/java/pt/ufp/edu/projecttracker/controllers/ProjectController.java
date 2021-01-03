@@ -29,10 +29,9 @@ public class ProjectController {
        return projectService.getProjectByID(id);
    }
 
-   @GetMapping("/{id}/value")
-   public ProjectValueDTOResponse getProjectValueByID(@PathVariable("id") Long id){
+    @GetMapping("/{id}/value")
+    public ProjectValueDTOResponse getProjectValueByID(@PathVariable("id") Long id){
         return projectService.getProjectValueByID(id);
-
     }
 
 

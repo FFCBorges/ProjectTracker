@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ufp.edu.projecttracker.api.request.ProjectManagerDTO;
 import pt.ufp.edu.projecttracker.api.response.ProjectManagerDTOResponse;
+import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundException404;
 import pt.ufp.edu.projecttracker.model.ProjectManager;
 import pt.ufp.edu.projecttracker.repositories.ProjectManagerRepository;
 
@@ -44,7 +45,7 @@ public class ProjectManagerService {
            return projectManagerDTOResponse;
        }
 
-       return null;
+        throw new EntityNotFoundException404("Project Manager Not Found");
     }
 
 

@@ -1,0 +1,66 @@
+
+Commit 1  03/01 ffcborges
+
+----------- D.T.Os. ---------------
+
+    ProjectTimeDTOResponse.java
+        number of attributes was reduced in order to
+        feature only what is required by the endpoint
+        in question (GET /project/{id}/value)
+
+    ProjectTimeDTOResponse.java
+        creation of this DTO to transfer information
+        regarding the endpoint (GET /project/{id}/time)
+
+------------- Controllers -----------
+
+
+ControllerAdvisor.java
+
+    within the controllers package was created a class
+    to handle exceptions occurring from http requests
+
+
+
+------------- Services -----------
+
+  ProjectManagerService.java
+    now returns an exception with http status 404
+    of no Project Manager is found with the given ID
+
+ ProjectService.java
+    now returns an exception with http status 404
+    of no Project is found with the given ID
+
+-----------   Models    ---------------
+
+
+
+
+-----------  Exceptions ----------------
+
+Some exceptions were created in order
+for the correct http status to be returned
+in case of http request error, thus providing
+some information to the end user
+
+    BadRequestException400.java
+    EntityNotFoundException.java
+
+
+---------- Other Files ---------------
+
+Creation of ErrorMessage.java
+
+    This class will carry information regarding
+    http errors to the view.
+
+
+
+
+
+
+
+
+
+
