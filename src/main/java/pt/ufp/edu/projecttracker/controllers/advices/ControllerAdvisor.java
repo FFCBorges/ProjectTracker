@@ -19,7 +19,7 @@ public class ControllerAdvisor {
     @ExceptionHandler({BadRequestException400.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ErrorMessage RequestError(BadRequestException400 exception){
+    public ErrorMessage requestError(BadRequestException400 exception){
         ErrorMessage errorMessage = new ErrorMessage(exception.getMessage(), exception.getCause());
         return errorMessage;
     }
@@ -27,7 +27,7 @@ public class ControllerAdvisor {
     @ExceptionHandler(value={EntityNotFoundException404.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public ErrorMessage RequestError(EntityNotFoundException404 exception){
+    public ErrorMessage requestError(EntityNotFoundException404 exception){
         ErrorMessage errorMessage = new ErrorMessage(exception.getMessage(),exception.getCause());
         return errorMessage;
     }
@@ -36,7 +36,7 @@ public class ControllerAdvisor {
     @ExceptionHandler(value={Exception.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ErrorMessage RequestError(Exception exception){
+    public ErrorMessage requestError(Exception exception){
         ErrorMessage errorMessage = new ErrorMessage(exception.getMessage(), exception.getCause());
         return errorMessage;
     }
