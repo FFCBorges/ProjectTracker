@@ -33,7 +33,7 @@ public class ControllerAdvisor {
     }
 
 
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler(value={Exception.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorMessage RequestError(Exception exception){

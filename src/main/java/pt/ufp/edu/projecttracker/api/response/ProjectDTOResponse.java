@@ -15,4 +15,13 @@ public class ProjectDTOResponse {
     private String projectDescription;
     private ProjectState state;
     private Integer numberOfTasks;
+
+    public ProjectDTOResponse(String name, Long projectManagerID, Long clientID, String projectDescription, ProjectState state, Integer numberOfTasks) {
+        this.name = name;
+        this.projectManagerID = projectManagerID;
+        this.clientID = clientID;
+        this.projectDescription = projectDescription;
+        this.state = state;
+        this.numberOfTasks = numberOfTasks;
+    }
 }

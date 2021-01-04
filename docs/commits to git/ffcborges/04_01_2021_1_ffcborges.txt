@@ -1,0 +1,101 @@
+
+Commit 1  04/01 ffcborges
+
+----------- D.T.Os. ---------------
+Some DTOs were Created
+    ClientDTOResponse.java
+        To transfer information generated from
+        http GET requests regarding a Client or Clients
+    EmployeeDTOResponse.java
+        To transfer information generated from
+        http GET requests regarding a Employee or Employees
+
+Some DTOs were changed
+    ProjectValueDTOResponse.java
+        A all args constructor was added
+
+
+------------- Controllers -----------
+
+Some Controllers were changed:
+
+    ClientController.java
+        Methods to handle http requests were added:
+            GET/client/{id}
+            GET/client   (returns all clients)
+        minor change was done regarding the relative path of the requests
+
+
+      EmployeeController.java
+         Methods to handle http requests were added:
+             GET/employee/{id}
+             GET/employee   (returns all employees)
+         minor change was done regarding the relative path of the requests
+
+       ProjectController.java
+           Methods to handle http requests were added:
+             GET/project/{id}
+             GET/project   (returns all projects)
+
+
+------------- Services -----------
+
+Some Service files were changed in order
+to keep up with changes at the controller level
+namely:
+
+  ClientService.java
+  ProjectService.java
+  EmployeeService.java
+
+Some methods were trimmed down and the logic of getting
+secondary (calculated from several attributes) information
+was passed down to the models
+
+   TaskAsPlannedService.java
+
+    some verifications and Exceptions were included in the method
+    bindTaskToEmployee() not to allow Employees with the
+    "wrong" role to be assigned to Tasks and to inform the end user of such problem.
+    (a 404 status was also included for cases where the Task, the Employee or both
+    are not found on the DB by the IDs supplied by the end user)
+
+
+
+
+-----------   Models    ---------------
+Some Models were Improved upon:
+
+    Client.java
+         A Method (getNumberOfOngoingProjects():Integer)was created to return the number
+         of ongoing projects (not finished, not dropped)
+
+    Employee.java
+        A Method getNumberOfOngoingTasks():Integer was created to return the number
+        a given Employee is currently working (or should be...) on
+
+    Project.java
+        A Method getManHours():Integer was created to return the flat man hours
+        assigned to the project (no distinction regarding employee roles)
+
+
+
+
+
+-----------  Exceptions ----------------
+
+
+
+
+---------- Other Files ---------------
+
+
+
+
+
+
+
+
+
+
+

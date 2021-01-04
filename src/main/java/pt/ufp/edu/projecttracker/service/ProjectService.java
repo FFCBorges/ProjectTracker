@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pt.ufp.edu.projecttracker.api.request.ProjectDTO;
 import pt.ufp.edu.projecttracker.api.response.ProjectDTOResponse;
+import pt.ufp.edu.projecttracker.api.response.ProjectTimeDTOResponse;
 import pt.ufp.edu.projecttracker.api.response.ProjectValueDTOResponse;
+import pt.ufp.edu.projecttracker.controllers.advices.exceptions.BadRequestException400;
 import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundException404;
-import pt.ufp.edu.projecttracker.exceptions.EntityNotFoundOnDB;
 import pt.ufp.edu.projecttracker.model.Client;
 import pt.ufp.edu.projecttracker.model.Project;
 import pt.ufp.edu.projecttracker.model.ProjectManager;
@@ -16,6 +17,8 @@ import pt.ufp.edu.projecttracker.repositories.ProjectManagerRepository;
 import pt.ufp.edu.projecttracker.repositories.ProjectRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +35,7 @@ public class ProjectService {
     @Transactional
     public void createProject(ProjectDTO projectDTO){
         Project project = new Project();
+        //fazer verificaçao de projecto id
         ProjectManager projectManager= extractProjectManagerByID(projectDTO);
         project.setProjectManager(projectManager);
         if(projectDTO.getClientID()!=null){
@@ -50,7 +54,7 @@ public class ProjectService {
         if(optionalProjectManager.isPresent()){
             return optionalProjectManager.get();
         }
-        throw new EntityNotFoundOnDB("Project Manager 404");
+        throw new BadRequestException400("The Project Manager assigned to this Project does not exist");
     }
 
     private Client extractClientByID(ProjectDTO projectDTO) {
@@ -58,7 +62,7 @@ public class ProjectService {
         if(optionalClient.isPresent()){
             return optionalClient.get();
         }
-        throw new EntityNotFoundOnDB("Client 404");
+        throw new BadRequestException400("The Client assigned to this Project does not exist");
     }
 
 
@@ -76,31 +80,12 @@ public class ProjectService {
             return projectDTO;
         }
 
-        throw new EntityNotFoundException404("Projecto não Encontrado");
+        throw new EntityNotFoundException404("Project Not Found");
 
     }
 
 
-//    public ProjectValueDTOResponse getProjectValueByID(Long id){
-//        Optional<Project> optionalProject = projectRepository.findById(id);
-//        if(optionalProject.isPresent()){
-//            Project project = optionalProject.get();
-//            ProjectValueDTOResponse projectDTO= new ProjectValueDTOResponse();
-//            projectDTO.setProjectName(project.getName());
-//            projectDTO.setPlannedBudget(project.getEstimatedProjectCost());
-//            projectDTO.setExpenditure(project.getCurrentProjectCost());
-//            projectDTO.setExecutionRate(project.getProjectExecutionRate());
-//            projectDTO.setProjectState(project.getProjectState());
-//            if(project.onTime()){
-//                projectDTO.setOnTime("On Time");
-//            }else{
-//                projectDTO.setOnTime("Delayed");
-//            }
-//            return projectDTO;
-//        }
-//        return null;
-//
-//    }
+
 
     public ProjectValueDTOResponse getProjectValueByID(Long id){
         Optional<Project> optionalProject= projectRepository.findById(id);
@@ -113,7 +98,36 @@ public class ProjectService {
         }
 
         throw new EntityNotFoundException404("Projecto não Encontrado");
-
-
     }
+
+    public ProjectTimeDTOResponse getProjectTimeByID(Long id){
+        Optional<Project> optionalProject= projectRepository.findById(id);
+        if(optionalProject.isPresent()){
+            Project project = optionalProject.get();
+            ProjectTimeDTOResponse response = new ProjectTimeDTOResponse();
+            response.setProjectName(project.getName());
+            response.setStartDate(project.getStartingDate());
+            response.setDueDate(project.getDueDate());
+            response.setManHours(project.getManHours());
+            return response;
+        }
+
+        throw new EntityNotFoundException404("No Project found with such ID");
+    }
+
+    public List<ProjectDTOResponse> getAllProjects(){
+        Iterable<Project> projects=projectRepository.findAll();
+        List<ProjectDTOResponse> projectDTOList = new ArrayList<>();
+
+        for(Project p:projects){
+            if(p.getClient()!=null) {
+                projectDTOList.add(new ProjectDTOResponse(p.getName(), p.getProjectManager().getUserID(), p.getClient().getUserID(), p.getProjectDesc(), p.getProjectState(), p.getPlannedTasks().size()));
+            }else{
+                projectDTOList.add(new ProjectDTOResponse(p.getName(), p.getProjectManager().getUserID(), null, p.getProjectDesc(), p.getProjectState(), p.getPlannedTasks().size()));
+            }
+        }
+
+        return projectDTOList;
+    }
+
 }

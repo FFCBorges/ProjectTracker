@@ -43,4 +43,15 @@ public class Client extends User{
         return null;
     }
 
+    public Integer getNumberOfOngoingProjects(){
+        Integer ongoingProjects=0;
+        for (Project p:getProjects()){
+            if(!p.getProjectState().equals(ProjectState.FINISHED) && !p.getProjectState().equals(ProjectState.DROPPED) ){
+                ongoingProjects++;
+            }
+        }
+        return ongoingProjects;
+
+    }
+
 }

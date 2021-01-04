@@ -175,6 +175,7 @@ public class Project {
      * @return earliest Planned Task start date
      */
     public LocalDate getStartingDate(){
+        if(plannedTasks.isEmpty()) return null;
         LocalDate starting=LocalDate.MAX;
         for(TaskAsPlanned t:this.plannedTasks) {
             if(t.getPlannedStartDate().isBefore(starting)){
@@ -192,6 +193,7 @@ public class Project {
      * @return latest Planned Task due date
      */
     public LocalDate getDueDate(){
+        if(plannedTasks.isEmpty()) return null;
         LocalDate due=LocalDate.MIN;
         for(TaskAsPlanned t:this.plannedTasks) {
             if(t.getPlannedDueDate().isAfter(due)){
@@ -276,6 +278,18 @@ public class Project {
 
     public void setProjectManager(ProjectManager p){
         this.projectManager=p;
+    }
+
+
+    public Integer getManHours(){
+        Integer manHours = 0;
+        if(getPlannedTasks()!=null) {
+            for (TaskAsPlanned taskP : getPlannedTasks()) {
+                manHours += taskP.getEstimatedHours();
+            }
+
+        }
+        return manHours;
     }
 
 }

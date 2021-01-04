@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskBindEmployeeDTO;
+import pt.ufp.edu.projecttracker.controllers.advices.exceptions.BadRequestException400;
+import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundException404;
 import pt.ufp.edu.projecttracker.exceptions.EntityNotFoundOnDB;
 import pt.ufp.edu.projecttracker.model.Employee;
 import pt.ufp.edu.projecttracker.model.Project;
@@ -55,17 +57,20 @@ public class TaskAsPlannedService {
         throw new EntityNotFoundOnDB("Project 404");
     }
 
-    //Todo verificações
+
     @Transactional
-    public void bindTaskToEmployee(Long id, TaskBindEmployeeDTO employeeIDDTO) {
+    public void bindTaskToEmployee (Long id, TaskBindEmployeeDTO employeeIDDTO){
         Optional<TaskAsPlanned> optionalTaskAsPlanned = taskAsPlannedRepository.findById(id);
         Long employeeID=employeeIDDTO.getEmployeeID();
         Optional<Employee> optionalEmployee=employeeRepository.findById(employeeID);
         if(optionalEmployee.isPresent() && optionalTaskAsPlanned.isPresent()){
             Employee employee=optionalEmployee.get();
             TaskAsPlanned taskAsPlanned=optionalTaskAsPlanned.get();
+            if(!employee.getRole().equals(taskAsPlanned.getEmployeeType())) throw new BadRequestException400("Employ role does not match Task's needs");
             taskAsPlanned.setEmployee(employee);
             employee.addTask(taskAsPlanned);
+        } else{
+            throw new EntityNotFoundException404("Either the Employee, the Task or both do not exist");
         }
 
 

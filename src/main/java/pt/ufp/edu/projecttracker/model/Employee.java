@@ -30,7 +30,7 @@ public class Employee extends User {
         this.role=role;
     }
 
-    //como testar este metodo?
+
     public int getRoleRate(){
         if(role.equals(Role.JUNIOR_DEVELOPER)){
             return 10;
@@ -47,7 +47,7 @@ public class Employee extends User {
         return -1;
     }
 
-    //como testar este metodo?
+
     public TaskAsPlanned getTask(Long taskID){
 
         for (TaskAsPlanned task:tasks) {
@@ -61,7 +61,15 @@ public class Employee extends User {
         this.tasks.add(task);
     }
 
-    //o método getTasks é criado pelo lombok, como testar?
+    public Integer getNumberOfOngoingTasks(){
+        Integer ongoingTasks=0;
+        for (TaskAsPlanned t:getTasks()) {
+            if (t.getTaskExecutionRate() != 1d && !t.getProject().getProjectState().equals(ProjectState.DROPPED)) {
+                ongoingTasks++;
+            }
+        }
+        return ongoingTasks;
+    }
 
 
 

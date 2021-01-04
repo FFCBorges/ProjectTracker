@@ -8,8 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import pt.ufp.edu.projecttracker.model.*;
-import pt.ufp.edu.projecttracker.repositories.*;
+import pt.ufp.edu.projecttracker.model.Client;
+import pt.ufp.edu.projecttracker.model.Employee;
+import pt.ufp.edu.projecttracker.model.Project;
+import pt.ufp.edu.projecttracker.model.ProjectManager;
+import pt.ufp.edu.projecttracker.model.Role;
+import pt.ufp.edu.projecttracker.model.TaskAsPlanned;
+import pt.ufp.edu.projecttracker.model.TaskInExecution;
+import pt.ufp.edu.projecttracker.repositories.ClientRepository;
+import pt.ufp.edu.projecttracker.repositories.EmployeeRepository;
+import pt.ufp.edu.projecttracker.repositories.ProjectManagerRepository;
+import pt.ufp.edu.projecttracker.repositories.ProjectRepository;
+import pt.ufp.edu.projecttracker.repositories.TaskAsPlannedRepository;
+import pt.ufp.edu.projecttracker.repositories.TaskInExecutionRepository;
 
 import java.time.LocalDate;
 
@@ -52,7 +63,7 @@ public class Init implements ApplicationListener<ContextRefreshedEvent> {
         Client client2 = new Client("Sr Lopes da Silva", "lopesdasilva@gmail.com", "passdolopes");
         clientRepository.save(client2);
 
-        Employee emp1= new Employee("Johny", "Johny@gmail.com","passdojohny",Role.JUNIOR_DEVELOPER);
+        Employee emp1= new Employee("Johny", "Johny@gmail.com","passdojohny", Role.JUNIOR_DEVELOPER);
         employeeRepository.save(emp1);
         Employee emp2= new Employee("Armando","armando@gmail.com","passdoarmando",Role.JUNIOR_ANALYST);
         employeeRepository.save(emp2);
