@@ -1,7 +1,12 @@
 package pt.ufp.edu.projecttracker.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pt.ufp.edu.projecttracker.api.request.ProjectDTO;
 import pt.ufp.edu.projecttracker.api.response.ProjectDTOResponse;
 import pt.ufp.edu.projecttracker.api.response.ProjectTimeDTOResponse;
