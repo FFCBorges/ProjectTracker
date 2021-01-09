@@ -60,6 +60,7 @@ public class Project {
     @JoinColumn(name="client")
     private Client client;
 
+    //@ToString.Include
     @OneToMany(mappedBy = "project")
     private List<TaskAsPlanned> plannedTasks = new ArrayList<TaskAsPlanned>();
 
@@ -130,7 +131,8 @@ public class Project {
     public void  addTask(TaskAsPlanned taskAsPlanned){
         if(this.projectState.equals(ProjectState.ONGOING_PLANNING)){
         getPlannedTasks().add(taskAsPlanned);
-        taskAsPlanned.setProject(this);}
+        taskAsPlanned.setProject(this);
+        }
         else{
             throw new ProjectPlanningOver("The planning phase of this Project is already over. No more tasks can be added to it");
         }

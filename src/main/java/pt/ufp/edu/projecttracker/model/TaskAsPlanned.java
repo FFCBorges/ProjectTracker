@@ -75,6 +75,7 @@ public class TaskAsPlanned {
         this.project = project;
         this.employeeType=employeeType;
         project.addTask(this);
+        this.taskInExecution= new TaskInExecution(this);
 
 
     }

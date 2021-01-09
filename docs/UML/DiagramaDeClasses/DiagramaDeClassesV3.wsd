@@ -77,19 +77,15 @@ package Models {
     class TaskInExecution{
         -hoursUsed:Integer
         -executionRate:Double
+        -finishedBy:LocalDate
         +getHoursUsed():Integer
         +setHoursUsed(hoursUsed: Integer) 
         +addHoursUsed(hoursToAdd: Integer) 
         +getExecutionRate(): Double 
         +setExecutionRate(executionRate: Double) 
         +getCurrentTaskCost(): Integer 
-
-
     }
 
-
-
- 
 
     ProjectManager-[hidden]>Employee
     Client-[hidden]->Project
@@ -100,14 +96,14 @@ package Models {
 
 
     ProjectManager "1" --- "0...*" Project
-    Employee "1" --- "0...*" TaskAsPlanned
+    Employee "0..1" --- "0...*" TaskAsPlanned
     Project "1" --- "0.*" TaskAsPlanned
     Client "0...1" --- "0...*" Project
     User <|--- ProjectManager
     User <|--- Client
     User <|--- Employee
-    TaskAsPlanned"1" --- "1"TaskInExecution
+    TaskAsPlanned"1" --- "0...1"TaskInExecution
     Employee --> Role
-    TaskAsPlanned->Role
+    TaskAsPlanned -> Role
     Project -> ProjectState
 }
