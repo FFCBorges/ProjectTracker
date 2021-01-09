@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pt.ufp.edu.projecttracker.api.request.ProjectDTO;
+import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundException404;
 import pt.ufp.edu.projecttracker.model.*;
 import pt.ufp.edu.projecttracker.service.ProjectService;
 
@@ -39,8 +40,7 @@ class ProjectControllerTest {
     private TaskAsPlanned taskAsPlanned1;
     private TaskAsPlanned taskAsPlanned2;
 
-    private TaskInExecution taskInExecution1;
-    private TaskInExecution taskInExecution2;
+
 
     @BeforeEach
     void setup(){
@@ -114,8 +114,9 @@ class ProjectControllerTest {
     void getProjectTimeByID()throws Exception{
 
         when(projectService.getProjectTimeByID(1L)).thenReturn(project);
+        when(projectService.getProjectTimeByID(100L)).thenThrow(EntityNotFoundException404.class);
         mockMvc.perform(get("/project/1/time")).andExpect(status().isOk());
-        mockMvc.perform(get("/project/100/time")).andExpect(status().is(400));
+        mockMvc.perform(get("/project/100/time")).andExpect(status().is(404));
 
     }
 

@@ -32,7 +32,7 @@ public class ClientService {
 
     }
 
-    private Client extractClientByID(Long id){
+    public Client extractClientByID(Long id){
         Optional<Client> client = clientRepository.findById(id);
         if(client.isPresent()) return client.get();
         throw new EntityNotFoundException404("Client With That ID Was Not Found");
