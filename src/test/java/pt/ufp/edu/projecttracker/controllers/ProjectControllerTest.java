@@ -1,6 +1,7 @@
 package pt.ufp.edu.projecttracker.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -89,7 +90,8 @@ class ProjectControllerTest {
         when(projectService.extractClientByID(100L)).thenReturn(client);
 
         Mockito.doNothing().when(projectService).createProject(project);
-        mockMvc.perform(MockMvcRequestBuilders.post("/project").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(projectDTO))).andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.post("/project").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(projectDTO))).andExpect(status().isOk());
 
         Mockito.verify(projectService).createProject(any());
     }
@@ -97,6 +99,7 @@ class ProjectControllerTest {
     @Test
     void getAllProjectsTest() throws Exception{
 
+        when(projectService.getAllProjects()).thenReturn(Lists.newArrayList(project));
         mockMvc.perform(get("/project")).andExpect(status().isOk());
 
     }
@@ -105,7 +108,9 @@ class ProjectControllerTest {
     void getProjectValueByID() throws Exception{
 
         when(projectService.getProjectValueByID(1L)).thenReturn(project);
+        when(projectService.getProjectValueByID(155L)).thenThrow(EntityNotFoundException404.class);
         mockMvc.perform(get("/project/1/value")).andExpect(status().isOk());
+        mockMvc.perform(get("/project/155/value")).andExpect(status().is(404));
 
 
     }

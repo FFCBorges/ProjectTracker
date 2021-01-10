@@ -11,14 +11,14 @@ public class ErrorMessage {
     private String timeStamp;
     private String exceptionCauseMessage;
 
-    public ErrorMessage() {
-        this.timeStamp = LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_TIME);
-    }
-
-    public ErrorMessage(String message) {
-        this.timeStamp = LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_TIME);
-        this.message = message;
-    }
+//    public ErrorMessage() {
+//        this.timeStamp = LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_TIME);
+//    }
+//
+//    public ErrorMessage(String message) {
+//        this.timeStamp = LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_TIME);
+//        this.message = message;
+//    }
 
     public ErrorMessage(String message, Throwable t) {
         this.timeStamp = LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_TIME);
@@ -32,9 +32,9 @@ public class ErrorMessage {
         return this.message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
 
     public String getTimeStamp() {
         return this.timeStamp;
@@ -44,9 +44,9 @@ public class ErrorMessage {
         return this.exceptionCauseMessage;
     }
 
-    public void setExceptionCauseMessage(String exceptionCauseMessage) {
-        this.exceptionCauseMessage = exceptionCauseMessage;
-    }
+//    public void setExceptionCauseMessage(String exceptionCauseMessage) {
+//        this.exceptionCauseMessage = exceptionCauseMessage;
+//    }
 
 
 }

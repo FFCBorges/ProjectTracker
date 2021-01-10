@@ -33,13 +33,13 @@ public class ControllerAdvisor {
     }
 
 
-    @ExceptionHandler(value={Exception.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public ErrorMessage requestError(Exception exception){
-        ErrorMessage errorMessage = new ErrorMessage(exception.getMessage(), exception.getCause());
-        return errorMessage;
-    }
+//    @ExceptionHandler(value={Exception.class})
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseBody
+//    public ErrorMessage requestError(Exception exception){
+//        ErrorMessage errorMessage = new ErrorMessage(exception.getMessage(), exception.getCause());
+//        return errorMessage;
+//    }
 
 
 }

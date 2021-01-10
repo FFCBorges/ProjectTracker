@@ -2,6 +2,7 @@ package pt.ufp.edu.projecttracker.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ufp.edu.projecttracker.controllers.advices.exceptions.BadRequestException400;
 import pt.ufp.edu.projecttracker.model.ProjectManager;
 import pt.ufp.edu.projecttracker.repositories.ProjectManagerRepository;
 
@@ -24,11 +25,14 @@ public class ProjectManagerService {
         projectManagerRepository.save(projectManager);
     }
 
-    public Optional<ProjectManager> getProjectManagerByID(Long id){
-       return projectManagerRepository.findById(id);
+    public ProjectManager getProjectManagerByID(Long id) {
+        Optional<ProjectManager> optionalProjectManager = projectManagerRepository.findById(id);
+        if (optionalProjectManager.isPresent()) {
+            return optionalProjectManager.get();
+        }
+        throw new BadRequestException400("No such Manager with such ID exists");
 
     }
-
 
     public Iterable<ProjectManager> getAllProjectManagers(){
         return projectManagerRepository.findAll();

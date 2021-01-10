@@ -1,9 +1,9 @@
 package pt.ufp.edu.projecttracker.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true, onlyExplicitlyIncluded = true)
+//@ToString(callSuper = true, onlyExplicitlyIncluded = true)
 @Entity
 @Table(name="clients")
 public class Client extends User{
@@ -29,11 +29,10 @@ public class Client extends User{
     }
 
 
-
-    public void removeProject(Project p){
-        this.projects.remove(p);
-        p.setClient(null);
-    }
+//    public void removeProject(Project p){
+//        this.projects.remove(p);
+//        p.setClient(null);
+//    }
 
 //    public Project getProject(String projectName){
 //

@@ -11,10 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pt.ufp.edu.projecttracker.api.request.ProjectManagerDTO;
+import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundException404;
 import pt.ufp.edu.projecttracker.model.ProjectManager;
 import pt.ufp.edu.projecttracker.service.ProjectManagerService;
-
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -49,13 +48,13 @@ class ProjectManagerControllerTest {
     @Test
     void getProjectManagerByIDTest() throws Exception {
 
-        when(projectManagerService.getProjectManagerByID(20L)).thenReturn(Optional.of(projectManager));
+        when(projectManagerService.getProjectManagerByID(20L)).thenReturn(projectManager);
 
         mockMvc.perform(get("/manager/20")).andExpect(status().isOk());
 
-        when(projectManagerService.getProjectManagerByID(20L)).thenReturn(Optional.empty());
+        when(projectManagerService.getProjectManagerByID(200L)).thenThrow(EntityNotFoundException404.class);
 
-        mockMvc.perform(get("/manager/20")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/manager/200")).andExpect(status().isNotFound());
 
     }
 

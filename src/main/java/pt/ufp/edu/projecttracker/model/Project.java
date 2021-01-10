@@ -3,25 +3,9 @@ package pt.ufp.edu.projecttracker.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToDroppedFromFinished;
-import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToFinished;
-import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToFinishedWithUnfinishedTasks;
-import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToOngoingExecution;
-import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToOngoingPlanning;
-import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToPlanned;
-import pt.ufp.edu.projecttracker.exceptions.ProjectPlanningOver;
-import pt.ufp.edu.projecttracker.exceptions.ProjectStateNotInExecutionOrFinished;
+import pt.ufp.edu.projecttracker.exceptions.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,13 +123,13 @@ public class Project {
 
     }
 
-    public void removeClient(){
-        if(client!=null){
-            client.removeProject(this);
-            client=null;
-        }
-
-    }
+//    public void removeClient(){
+//        if(client!=null){
+//            client.removeProject(this);
+//            client=null;
+//        }
+//
+//    }
 
     /**
      * This method alters the state of a given project
@@ -267,25 +251,19 @@ public class Project {
             int currentCost = this.getCurrentProjectCost();
             int estimatedCost = this.getEstimatedProjectCost();
             double shareOfSpentBudget = ((double)currentCost)/estimatedCost;
-            if(executionRate>=shareOfSpentBudget){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return executionRate >= shareOfSpentBudget;
         }
         else if(this.getProjectState().equals(ProjectState.FINISHED)){
-            if(this.getEstimatedProjectCost()>=this.getCurrentProjectCost()) return true;
-            else return false;
+            return this.getEstimatedProjectCost() >= this.getCurrentProjectCost();
         }
 
         throw new ProjectStateNotInExecutionOrFinished("Cannot check Budget of projects not undergoing Execution or already Finished ");
 
     }
 
-    public void setProjectToPlanned() {
-        this.setProjectState(ProjectState.PLANNED);
-    }
+//    public void setProjectToPlanned() {
+//        this.setProjectState(ProjectState.PLANNED);
+//    }
 
 
     public Integer numberOfTasks(){
