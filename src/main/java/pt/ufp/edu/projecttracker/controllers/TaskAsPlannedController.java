@@ -3,6 +3,7 @@ package pt.ufp.edu.projecttracker.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedBindProjectDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskBindEmployeeDTO;
 import pt.ufp.edu.projecttracker.model.Employee;
@@ -43,6 +44,22 @@ public class TaskAsPlannedController {
            taskAsPlannedService.bindTaskToEmployee(id, employee);
 
     }
+
+
+    @PatchMapping("/project/{id}")
+    public void createAndBindTaskToProject(@PathVariable("id") Long projectID, @RequestBody TaskAsPlannedBindProjectDTO taskDTO) {
+        Long employeeID = taskDTO.getEmployeeID();
+        TaskAsPlanned taskAsPlanned = new TaskAsPlanned();
+        taskAsPlanned.setTitle(taskDTO.getTitle());
+        taskAsPlanned.setDescription(taskDTO.getDescription());
+        taskAsPlanned.setEstimatedHours(taskDTO.getEstimatedHours());
+        taskAsPlanned.setEmployeeType(taskDTO.getEmployeeType());
+        taskAsPlanned.setPlannedStartDate(taskDTO.getPlannedStartDate());
+        taskAsPlanned.setPlannedDueDate(taskDTO.getPlannedDueDate());
+        taskAsPlannedService.createAndBindTaskToProject(taskAsPlanned, projectID, employeeID);
+
+    }
+
 
 
 }

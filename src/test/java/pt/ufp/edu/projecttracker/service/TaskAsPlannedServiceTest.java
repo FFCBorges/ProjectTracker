@@ -113,5 +113,24 @@ class TaskAsPlannedServiceTest {
 
     }
 
+    @Test
+    void createAndBindTaskToProjectTest() {
+        when(employeeRepository.findById(22L)).thenReturn(Optional.of(employee));
+        when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
+        when(taskAsPlannedRepository.findById(33L)).thenReturn(Optional.of(taskAsPlanned));
+        taskAsPlanned.setProject(null);
+        taskAsPlanned.setEmployee(null);
+        taskAsPlannedService.createAndBindTaskToProject(taskAsPlanned, 1L, 22L);
+        taskAsPlanned = taskAsPlannedRepository.findById(33L).get();
+        Assertions.assertEquals(22L, taskAsPlanned.getEmployee().getUserID());
+        Assertions.assertEquals(1L, taskAsPlanned.getProject().getId());
+        employee.setRole(Role.SENIOR_ANALYST);
+        try {
+            taskAsPlannedService.createAndBindTaskToProject(taskAsPlanned, 1L, 22L);
+            assert false;
+        } catch (BadRequestException400 e) {
+            assert true;
+        }
+    }
 
 }

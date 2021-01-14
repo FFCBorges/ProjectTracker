@@ -2,7 +2,6 @@ package pt.ufp.edu.projecttracker.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import pt.ufp.edu.projecttracker.controllers.advices.exceptions.BadRequestException400;
 import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundException404;
 import pt.ufp.edu.projecttracker.exceptions.EntityNotFoundOnDB;
@@ -26,12 +25,6 @@ public class TaskAsPlannedService {
 
     @Transactional
     public void createTaskAsPlanned(TaskAsPlanned taskAsPlanned){
-//        if(taskAsPlannedDTO.getEmployeeID()!=null){
-//            taskAsPlanned.setEmployee(
-//                    employeeRepository
-//                    .findById(taskAsPlannedDTO.getEmployeeID())
-//                    .orElse(null));
-//        }
         taskAsPlannedRepository.save(taskAsPlanned);
     }
 
@@ -69,4 +62,26 @@ public class TaskAsPlannedService {
        }
         throw new EntityNotFoundException404("The Employee corresponding to the id supplied was not found");
     }
+
+
+    @Transactional
+    public void createAndBindTaskToProject(TaskAsPlanned taskAsPlanned, Long projectID, Long employeeID) {
+        Project project = extractProjectByID(projectID);
+        taskAsPlanned.setProject(project);
+        project.addTask(taskAsPlanned);
+        if (employeeID != null) {
+            Employee employee = extractEmployeeByID(employeeID);
+            if (employee != null && taskAsPlanned.getEmployeeType().equals(employee.getRole())) {
+                taskAsPlanned.setEmployee(employee);
+                employee.addTask(taskAsPlanned);
+                employeeRepository.save(employee);
+            } else
+                throw new BadRequestException400("The Employee you tried to assign to this task does not have the correct role ");
+        }
+        taskAsPlannedRepository.save(taskAsPlanned);
+        projectRepository.save(project);
+
+
+    }
+
 }

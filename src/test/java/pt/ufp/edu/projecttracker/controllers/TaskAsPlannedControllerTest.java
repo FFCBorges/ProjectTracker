@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedBindProjectDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskBindEmployeeDTO;
 import pt.ufp.edu.projecttracker.model.*;
@@ -82,5 +83,26 @@ class TaskAsPlannedControllerTest {
 
     }
 
+
+    @Test
+    void createAndBindTaskToProjectTest() throws Exception {
+
+        TaskAsPlannedBindProjectDTO dto = new TaskAsPlannedBindProjectDTO();
+        if (taskAsPlanned1.getDescription() != null) {
+            dto.setDescription(taskAsPlanned1.getDescription());
+        }
+        dto.setTitle(taskAsPlanned1.getTitle());
+        if (taskAsPlanned1.getEmployee() != null) {
+            dto.setEmployeeID(taskAsPlanned1.getEmployee().getUserID());
+        }
+        dto.setEmployeeType(taskAsPlanned1.getEmployeeType());
+        dto.setEstimatedHours(taskAsPlanned1.getEstimatedHours());
+        dto.setPlannedStartDate(taskAsPlanned1.getPlannedStartDate());
+        dto.setPlannedDueDate(taskAsPlanned1.getPlannedDueDate());
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/taskasplanned/project/9").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto))).andExpect(status().isOk());
+
+    }
 
 }
