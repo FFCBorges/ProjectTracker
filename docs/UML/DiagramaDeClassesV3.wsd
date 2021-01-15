@@ -1,0 +1,109 @@
+package Models {
+
+    class User {
+       
+        -name:String
+        -email:String
+        -password:String
+        
+    }
+
+
+    class Client {
+        +getProject(projectName: String): Project
+        +getProjects(): List <Project>
+    }
+
+    class ProjectManager{
+        +getProject(projectName: String): Project
+        +getProjects(): List <Project>
+    }
+
+    class Employee{
+        + getTasks(): List <TaskAsPlanned> 
+        + getTask(taskID: Long): TaskAsPlanned 
+        + getRoleRate(): Integer
+        
+    }
+
+    enum Role{
+        Junior_Developer
+        Junior_Analyst
+        Senior_Developer
+        Senior_Analist
+        
+    }
+
+    enum ProjectState {
+        Ongoing_Planning
+        Planned
+        Ongoing_Execution
+        Finished
+        Dropped
+
+    }
+
+
+
+    class Project{
+        -projectName:String
+        -projectDescription:String
+        +getEstimatedCost(): Integer 
+        +getCurrentProjectCost(): Integer 
+        +getExecutionRate(): Double
+        +getTasks(): List<TaskPlanned>
+        +getTask(taskName: String): TaskAsPlanned
+        +addTask(task: TaskAsPlanned)
+
+    }
+
+
+
+    class TaskAsPlanned{
+       
+       -title:String
+       -description:String
+       -estimatedHours:Int
+       +getEstimatedHours(): Integer 
+       +setEstimatedHours(estimatedHours: Integer) 
+       +getEstimatedCost() : Integer
+       +getProject(projectName: String) : Project
+       +getEmployee(): Employee 
+       +setEmployee(employeeID: Long) 
+
+    }
+
+
+    class TaskInExecution{
+        -hoursUsed:Integer
+        -executionRate:Double
+        -finishedBy:LocalDate
+        +getHoursUsed():Integer
+        +setHoursUsed(hoursUsed: Integer) 
+        +addHoursUsed(hoursToAdd: Integer) 
+        +getExecutionRate(): Double 
+        +setExecutionRate(executionRate: Double) 
+        +getCurrentTaskCost(): Integer 
+    }
+
+
+    ProjectManager-[hidden]>Employee
+    Client-[hidden]->Project
+    Project-[hidden]-->TaskAsPlanned
+    TaskAsPlanned-[hidden]>TaskInExecution
+    
+   
+
+
+    ProjectManager "1" --- "0...*" Project
+    Employee "0..1" --- "0...*" TaskAsPlanned
+    Project "1" --- "0.*" TaskAsPlanned
+    Client "0...1" --- "0...*" Project
+    User <|--- ProjectManager
+    User <|--- Client
+    User <|--- Employee
+    TaskAsPlanned"1" --- "0...1"TaskInExecution
+    Employee --> Role
+    TaskAsPlanned -> Role
+    Project -> ProjectState
+}

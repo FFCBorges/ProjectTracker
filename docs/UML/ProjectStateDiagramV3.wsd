@@ -1,0 +1,40 @@
+ @startuml
+hide empty description
+[*] --> ONGOING_PLANNING : Project Creation
+ONGOING_PLANNING -> PLANNED : setProjectState(PLANNED)
+PLANNED->ONGOING_EXECUTION :  setProjectState(ONGOING_EXECUTION)
+ONGOING_EXECUTION->FINISHED : All tasks have\n been completed
+ONGOING_PLANNING-->DROPPED : Decision to abandon\n the project altogether
+PLANNED-->DROPPED :Decision to abandon\n the project altogether
+ONGOING_EXECUTION-->DROPPED:Decision to abandon\n the project altogether
+FINISHED-->[*] : Project Lifecycle\n over
+DROPPED->[*] : Project Lifecycle\n over
+
+
+
+
+state ONGOING_EXECUTION{
+    [*]->On_Time
+    On_Time -> Delayed
+    Delayed-> On_Time
+    --
+    [*]->On_Budget
+    On_Budget -> Over_Budget
+    Over_Budget-> On_Budget
+}
+
+state FINISHED{
+    state Test_Finished_On_Time <<choice>>
+    [*]->Test_Finished_On_Time
+    Test_Finished_On_Time->Finished_On_Time
+    Test_Finished_On_Time -> Finished_With_Delay
+    Finished_On_Time-[hidden]>Finished_With_Delay
+    --    
+   state Test_Finished_On_Budget<<choice>>
+    [*]->Test_Finished_On_Budget
+    Test_Finished_On_Budget->Finished_On_Budget
+    Test_Finished_On_Budget -> Finished_Over_Budget
+    
+}
+
+@enduml
