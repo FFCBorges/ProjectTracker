@@ -13,7 +13,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pt.ufp.edu.projecttracker.api.request.ProjectDTO;
 import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundException404;
-import pt.ufp.edu.projecttracker.model.*;
+import pt.ufp.edu.projecttracker.model.Client;
+import pt.ufp.edu.projecttracker.model.Project;
+import pt.ufp.edu.projecttracker.model.ProjectManager;
+import pt.ufp.edu.projecttracker.model.Role;
+import pt.ufp.edu.projecttracker.model.TaskAsPlanned;
 import pt.ufp.edu.projecttracker.service.ProjectService;
 
 import java.time.LocalDate;

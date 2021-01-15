@@ -3,7 +3,13 @@ package pt.ufp.edu.projecttracker.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.ufp.edu.projecttracker.exceptions.*;
+import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToDroppedFromFinished;
+import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToFinished;
+import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToFinishedWithUnfinishedTasks;
+import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToOngoingExecution;
+import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToOngoingPlanning;
+import pt.ufp.edu.projecttracker.exceptions.ProjectChangeStateToPlanned;
+import pt.ufp.edu.projecttracker.exceptions.ProjectStateNotInExecutionOrFinished;
 
 import java.time.LocalDate;
 

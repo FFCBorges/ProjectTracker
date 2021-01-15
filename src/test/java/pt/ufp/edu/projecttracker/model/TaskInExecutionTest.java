@@ -12,8 +12,8 @@ class TaskInExecutionTest {
     private Project project;
     private TaskAsPlanned task1;
     private TaskAsPlanned task2;
-    private TaskAsPlanned task3;
-    private TaskAsPlanned task4;
+//    private TaskAsPlanned task3;
+
 
     @BeforeEach
     public void setup(){
@@ -32,11 +32,11 @@ class TaskInExecutionTest {
         project.addTask(task2);
 
 
-        task3 =new TaskAsPlanned(15, Role.JUNIOR_ANALYST,project,
-                LocalDate.of(2019, 12, 15),LocalDate.of(2020, 12, 10));
-        project.addTask(task3);
+//        task3 =new TaskAsPlanned(15, Role.JUNIOR_ANALYST,project,
+//                LocalDate.of(2019, 12, 15),LocalDate.of(2020, 12, 10));
+//        project.addTask(task3);
 
-        task4 = new TaskAsPlanned("dummy task", "dummy desc", 10);
+        TaskAsPlanned task4 = new TaskAsPlanned("dummy task", "dummy desc", 10);
 
 
     }

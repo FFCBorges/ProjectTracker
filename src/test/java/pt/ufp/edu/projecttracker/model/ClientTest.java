@@ -8,14 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ClientTest {
     private Client client;
-    private Project project;
-    private ProjectManager projectManager;
 
 
     @BeforeEach
     void setup() {
     client=new Client("Antonio", "antonio@gmail.com","passdoantonio");
-        projectManager = new ProjectManager();
+
 
     }
 
@@ -29,8 +27,7 @@ class ClientTest {
     @Test
     void getNumberOfOngoingProjects() {
         assertEquals(client.getNumberOfOngoingProjects(),0);
-        project = new Project("Project Client Test Client", projectManager, client);
-        assertEquals(client.getNumberOfOngoingProjects(), 1);
+
 
     }
 

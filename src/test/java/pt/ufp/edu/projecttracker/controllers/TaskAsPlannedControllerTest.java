@@ -12,7 +12,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedBindProjectDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskBindEmployeeDTO;
-import pt.ufp.edu.projecttracker.model.*;
+import pt.ufp.edu.projecttracker.model.Client;
+import pt.ufp.edu.projecttracker.model.Employee;
+import pt.ufp.edu.projecttracker.model.Project;
+import pt.ufp.edu.projecttracker.model.ProjectManager;
+import pt.ufp.edu.projecttracker.model.Role;
+import pt.ufp.edu.projecttracker.model.TaskAsPlanned;
 import pt.ufp.edu.projecttracker.service.TaskAsPlannedService;
 
 import java.time.LocalDate;
