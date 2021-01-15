@@ -13,6 +13,8 @@ import pt.ufp.edu.projecttracker.exceptions.ProjectStateNotInExecutionOrFinished
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 class ProjectTest {
 
@@ -54,6 +56,7 @@ class ProjectTest {
     @Test
     void onTime() {
         //true (still in Planning)
+        assertNotNull(project);
         Assertions.assertTrue(project.onTime(LocalDate.now()));
 
         project.setProjectState(ProjectState.PLANNED);
@@ -79,31 +82,37 @@ class ProjectTest {
 
     @Test
     void getEstimatedProjectCost() {
+        assertNotNull(project);
         Assertions.assertEquals(600, project.getEstimatedProjectCost());
     }
 
     @Test
     void getStartingDate() {
+        assertNotNull(project);
         Assertions.assertEquals(LocalDate.of(2019, 12, 15), project.getStartingDate());
     }
 
     @Test
     void getDueDate() {
+        assertNotNull(project);
         Assertions.assertEquals(LocalDate.of(2020, 12, 10), project.getDueDate());
     }
 
     @Test
     void getProjectExecutionRate() {
+        assertNotNull(project);
         Assertions.assertEquals((float) 0.5, project.getProjectExecutionRate());
     }
 
     @Test
     void getCurrentProjectCost() {
+        assertNotNull(project);
         Assertions.assertEquals(500, project.getCurrentProjectCost());
     }
 
     @Test
     void getProjectState(){
+        assertNotNull(project);
         Assertions.assertEquals(ProjectState.ONGOING_PLANNING, project.getProjectState());
 
 
@@ -233,6 +242,7 @@ class ProjectTest {
      * to Projects undergoing Execution or already Finished
      */
     void onBudget() {
+        assertNotNull(project);
         //If in any other state the sate will be changed to ongoing execution for testing purposes only
         try {project.onBudget();}
         catch (ProjectStateNotInExecutionOrFinished e){

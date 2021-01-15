@@ -22,6 +22,7 @@ import pt.ufp.edu.projecttracker.service.TaskAsPlannedService;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -93,7 +94,7 @@ class TaskAsPlannedControllerTest {
 
     @Test
     void createAndBindTaskToProjectTest() throws Exception {
-
+        assertNotNull(taskAsPlanned1);
         TaskAsPlannedBindProjectDTO dto = new TaskAsPlannedBindProjectDTO();
         if (taskAsPlanned1.getDescription() != null) {
             dto.setDescription(taskAsPlanned1.getDescription());

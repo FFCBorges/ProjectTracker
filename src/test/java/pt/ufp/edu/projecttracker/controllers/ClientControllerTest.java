@@ -15,6 +15,7 @@ import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundEx
 import pt.ufp.edu.projecttracker.model.Client;
 import pt.ufp.edu.projecttracker.service.ClientService;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -50,7 +51,7 @@ class ClientControllerTest {
 
     @Test
     void getClientByIDTest() throws Exception {
-
+        assertNotNull(client);
         when(clientService.extractClientByID(22L)).thenReturn(client);
         when(clientService.getClientByID(22L)).thenReturn(client);
 
@@ -80,7 +81,7 @@ class ClientControllerTest {
     @Test
     void getAllClientsTest() throws Exception {
 
-
+        assertNotNull(client);
         when(clientService.getAllClients()).thenReturn(Lists.newArrayList(client));
         mockMvc.perform(get("/client")).andExpect(status().isOk());
 

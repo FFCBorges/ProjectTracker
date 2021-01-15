@@ -15,6 +15,7 @@ import pt.ufp.edu.projecttracker.controllers.advices.exceptions.EntityNotFoundEx
 import pt.ufp.edu.projecttracker.model.ProjectManager;
 import pt.ufp.edu.projecttracker.service.ProjectManagerService;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -47,7 +48,7 @@ class ProjectManagerControllerTest {
 
     @Test
     void getProjectManagerByIDTest() throws Exception {
-
+        assertNotNull(projectManager);
         when(projectManagerService.getProjectManagerByID(20L)).thenReturn(projectManager);
 
         mockMvc.perform(get("/manager/20")).andExpect(status().isOk());
