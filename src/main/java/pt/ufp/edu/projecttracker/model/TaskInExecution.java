@@ -81,7 +81,7 @@ public class TaskInExecution {
         double taskTimeFrame = ChronoUnit.DAYS.between(getPlannedStartDate(),getPlannedDueDate());
         double elapsedTime = ChronoUnit.DAYS.between(getPlannedStartDate(),date);
 
-        return !(this.executionRate < (elapsedTime / taskTimeFrame));
+        return (this.executionRate >= (elapsedTime / taskTimeFrame));
 
     }
 

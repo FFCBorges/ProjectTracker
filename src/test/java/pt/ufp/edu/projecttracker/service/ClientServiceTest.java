@@ -12,6 +12,7 @@ import pt.ufp.edu.projecttracker.repositories.ClientRepository;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +36,7 @@ class ClientServiceTest {
 
     @Test
     void getClientByIDTest() {
+        assertNotNull(client);
         when(clientRepository.findById(1L)).thenReturn(Optional.of(client));
         Client extractedClient = clientService.getClientByID(1L);
         Assertions.assertEquals(extractedClient.getName(), client.getName());

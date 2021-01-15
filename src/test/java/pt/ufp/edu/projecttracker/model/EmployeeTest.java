@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 class EmployeeTest {
 
     private Employee employee;
@@ -33,6 +35,7 @@ class EmployeeTest {
 
     @Test
     public void getRoleRateTest() {
+        assertNotNull(employee);
         Assertions.assertEquals(10, employee.getRoleRate());
         employee.setRole(Role.JUNIOR_ANALYST);
         Assertions.assertEquals(20, employee.getRoleRate());

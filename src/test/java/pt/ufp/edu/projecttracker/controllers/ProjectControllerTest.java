@@ -73,7 +73,7 @@ class ProjectControllerTest {
 
     @Test
     void getProjectByIDTest() throws Exception {
-
+        assertNotNull(project);
         when(projectService.getProjectByID(1L)).thenReturn(project);
 
         mockMvc.perform(get("/project/1")).andExpect(status().isOk());
@@ -102,7 +102,7 @@ class ProjectControllerTest {
 
     @Test
     void getAllProjectsTest() throws Exception{
-
+        assertNotNull(project);
         when(projectService.getAllProjects()).thenReturn(Lists.newArrayList(project));
         mockMvc.perform(get("/project")).andExpect(status().isOk());
 
@@ -121,7 +121,7 @@ class ProjectControllerTest {
 
     @Test
     void getProjectTimeByID()throws Exception{
-
+        assertNotNull(project);
         when(projectService.getProjectTimeByID(1L)).thenReturn(project);
         when(projectService.getProjectTimeByID(100L)).thenThrow(EntityNotFoundException404.class);
         mockMvc.perform(get("/project/1/time")).andExpect(status().isOk());

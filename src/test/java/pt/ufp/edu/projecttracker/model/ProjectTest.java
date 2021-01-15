@@ -120,6 +120,7 @@ class ProjectTest {
 
     @Test
     void setProjectState() {
+        assertNotNull(project);
         /*The Initial Project State is ONGOING_PLANNING,
         * From this state the Project State can only change
         * to PLANNED or DROPPED first we test the Changes

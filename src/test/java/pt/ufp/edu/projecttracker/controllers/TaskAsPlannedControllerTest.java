@@ -72,6 +72,7 @@ class TaskAsPlannedControllerTest {
 
     @Test
     void createTaskAsPlannedTest() throws Exception {
+        assertNotNull(taskAsPlanned1);
         TaskAsPlannedDTO taskAsPlannedDTO = new TaskAsPlannedDTO(taskAsPlanned1.getTitle(), taskAsPlanned1.getDescription(),
                 taskAsPlanned1.getEstimatedHours(), taskAsPlanned1.getEmployeeType(),
                 project.getId(), employee.getUserID(), taskAsPlanned1.getPlannedStartDate(),
@@ -83,7 +84,7 @@ class TaskAsPlannedControllerTest {
 
     @Test
     void bindTaskToEmployeeTest() throws Exception {
-
+        assertNotNull(employee);
         TaskBindEmployeeDTO dto = new TaskBindEmployeeDTO(employee.getUserID());
         mockMvc.perform(MockMvcRequestBuilders.patch("/taskasplanned/employee/33").contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dto))).andExpect(status().isOk());
