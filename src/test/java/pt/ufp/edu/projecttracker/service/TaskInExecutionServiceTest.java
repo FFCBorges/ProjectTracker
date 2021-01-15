@@ -18,6 +18,7 @@ import pt.ufp.edu.projecttracker.repositories.TaskInExecutionRepository;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,6 +52,7 @@ public class TaskInExecutionServiceTest {
 
     @Test
     void extractPlannedTaskByIDTest() {
+        assertNotNull(taskAsPlanned);
         when(taskAsPlannedRepository.findById(33L)).thenReturn(Optional.of(taskAsPlanned));
         TaskAsPlanned extractedTaskAsPlanned = taskInExecutionService.extractTaskAsPlannedByID(33L);
         Assertions.assertEquals(taskAsPlanned, extractedTaskAsPlanned);

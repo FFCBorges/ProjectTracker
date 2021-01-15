@@ -36,7 +36,7 @@ class TaskInExecutionTest {
 //                LocalDate.of(2019, 12, 15),LocalDate.of(2020, 12, 10));
 //        project.addTask(task3);
 
-        TaskAsPlanned task4 = new TaskAsPlanned("dummy task", "dummy desc", 10);
+        //TaskAsPlanned task4 = new TaskAsPlanned("dummy task", "dummy desc", 10);
 
 
     }

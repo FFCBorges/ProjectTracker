@@ -16,6 +16,7 @@ import pt.ufp.edu.projecttracker.model.Employee;
 import pt.ufp.edu.projecttracker.model.Role;
 import pt.ufp.edu.projecttracker.service.EmployeeService;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,6 +47,7 @@ class EmployeeControllerTest {
 
     @Test
     void getEmployeeByIDTest() throws Exception {
+        assertNotNull(employeeJD);
         when(employeeService.getEmployeeByID(1L)).thenReturn(employeeJD);
         mockMvc.perform(get("/employee/1")).andExpect(status().isOk());
         when(employeeService.getEmployeeByID(155L)).thenThrow(EntityNotFoundException404.class);
@@ -56,7 +58,7 @@ class EmployeeControllerTest {
 
     @Test
     void getAllEmployees() throws Exception {
-
+        assertNotNull(employeeJD);
         when(employeeService.getAllEmployees()).thenReturn(Lists.newArrayList(employeeJD));
         mockMvc.perform(get("/employee")).andExpect(status().isOk());
 

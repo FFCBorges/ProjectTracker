@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import pt.ufp.edu.projecttracker.model.Project;
 import pt.ufp.edu.projecttracker.model.ProjectManager;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @DataJpaTest
 class ProjectRepositoryTest {
 
@@ -30,7 +32,7 @@ class ProjectRepositoryTest {
 //        project.setProjectManager(manager);
 
         ProjectManager manager = new ProjectManager("Manel Manager", "Manel@oBoss.com","passwordDoBoss");
-        Assertions.assertNotNull(manager.getEmail());
+        assertNotNull(manager);
         projectManagerRepository.save(manager);
 
 

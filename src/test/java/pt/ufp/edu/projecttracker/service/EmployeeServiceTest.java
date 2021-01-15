@@ -13,6 +13,7 @@ import pt.ufp.edu.projecttracker.repositories.EmployeeRepository;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,6 +37,7 @@ class EmployeeServiceTest {
 
     @Test
     void getEmployeeByIDTest() {
+        assertNotNull(employeeJD);
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employeeJD));
         Employee extractedEmployee = employeeService.getEmployeeByID(1L);
         Assertions.assertEquals(extractedEmployee.getName(), employeeJD.getName());

@@ -20,6 +20,7 @@ import pt.ufp.edu.projecttracker.repositories.ProjectRepository;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -109,7 +110,7 @@ class ProjectServiceTest {
 
     @Test
     void extractClientByIDTest(){
-
+        assertNotNull(client);
         when(clientRepository.findById(100L)).thenReturn(Optional.of(client));
         Client extractedClient= projectService.extractClientByID(100L);
         Assertions.assertEquals(client, extractedClient );
@@ -142,7 +143,7 @@ class ProjectServiceTest {
 
     @Test
     void getProjectTimeByIDTest(){
-
+        assertNotNull(project);
         when(projectRepository.findById(22L)).thenReturn(Optional.of(project));
         Project projectExtracted = projectService.getProjectTimeByID(22L);
         Assertions.assertEquals(projectExtracted.getName(), project.getName() );
