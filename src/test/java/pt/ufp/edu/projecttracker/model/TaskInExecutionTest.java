@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskInExecutionTest {
 
@@ -13,6 +13,7 @@ class TaskInExecutionTest {
     private TaskAsPlanned task1;
     private TaskAsPlanned task2;
     private TaskAsPlanned task3;
+    private TaskAsPlanned task4;
 
     @BeforeEach
     public void setup(){
@@ -34,6 +35,8 @@ class TaskInExecutionTest {
         task3 =new TaskAsPlanned(15, Role.JUNIOR_ANALYST,project,
                 LocalDate.of(2019, 12, 15),LocalDate.of(2020, 12, 10));
         project.addTask(task3);
+
+        task4 = new TaskAsPlanned("dummy task", "dummy desc", 10);
 
 
     }

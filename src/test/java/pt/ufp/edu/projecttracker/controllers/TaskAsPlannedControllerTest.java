@@ -17,6 +17,8 @@ import pt.ufp.edu.projecttracker.service.TaskAsPlannedService;
 
 import java.time.LocalDate;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -53,7 +55,7 @@ class TaskAsPlannedControllerTest {
         project.setName("project");
         project.setProjectManager(projectManager);
         project.setClient(client);
-        taskAsPlanned1 = new TaskAsPlanned("task 1", "do something", 10, project, Role.JUNIOR_ANALYST);
+        taskAsPlanned1 = new TaskAsPlanned("task 1", "do something", 10, project, Role.JUNIOR_DEVELOPER);
         taskAsPlanned1.setId(33L);
         taskAsPlanned1.setPlannedStartDate(LocalDate.of(2021, 1, 1));
         taskAsPlanned1.setPlannedDueDate(LocalDate.of(2021, 1, 31));
@@ -104,5 +106,21 @@ class TaskAsPlannedControllerTest {
                 .content(objectMapper.writeValueAsString(dto))).andExpect(status().isOk());
 
     }
+
+    @Test
+    void getTaskOverviewTest() throws Exception {
+        when(taskAsPlannedService.extractTaskByID(33L)).thenReturn(taskAsPlanned1);
+        mockMvc.perform(get("/taskasplanned/overview/33")).andExpect(status().isOk());
+        taskAsPlanned1.setEmployee(employee);
+        mockMvc.perform(get("/taskasplanned/overview/33")).andExpect(status().isOk());
+        taskAsPlanned1.getTaskInExecution().setHoursUsed(50);
+        mockMvc.perform(get("/taskasplanned/overview/33")).andExpect(status().isOk());
+        taskAsPlanned1.getTaskInExecution().setHoursUsed(0);
+        mockMvc.perform(get("/taskasplanned/overview/33")).andExpect(status().isOk());
+        taskAsPlanned1.getTaskInExecution().setExecutionRate(1D);
+        mockMvc.perform(get("/taskasplanned/overview/33")).andExpect(status().isOk());
+    }
+
+
 
 }

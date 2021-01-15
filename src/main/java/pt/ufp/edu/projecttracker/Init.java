@@ -94,8 +94,8 @@ public class Init implements ApplicationListener<ContextRefreshedEvent> {
         TaskAsPlanned tAP13= new TaskAsPlanned();
         tAP13.setTitle("tarefa 3 do projecto 1");
         tAP13.setProject(project1);
-        tAP13.setPlannedDueDate(LocalDate.of(2021,1,2));
-        tAP13.setPlannedStartDate(LocalDate.of(2021, 1, 10));
+        tAP13.setPlannedDueDate(LocalDate.of(2021, 2, 1));
+        tAP13.setPlannedStartDate(LocalDate.of(2021, 1, 20));
         tAP13.setEmployeeType(Role.JUNIOR_ANALYST);
         tAP13.setEstimatedHours(15);
         taskAsPlannedRepository.save(tAP13);

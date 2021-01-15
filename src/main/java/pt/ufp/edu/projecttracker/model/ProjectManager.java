@@ -35,17 +35,17 @@ public class ProjectManager extends User{
     }
 
 
-    public Project getProject(String projectName){
-        for (Project p: projects) {
-            if(p.getName().equals(projectName)) return p;
-        }
-        return null;
-    }
-
-    public void removeProject(Project p){
-        this.projects.remove(p);
-        p.setProjectManager(null);
-    }
+//    public Project getProject(String projectName){
+//        for (Project p: projects) {
+//            if(p.getName().equals(projectName)) return p;
+//        }
+//        return null;
+//    }
+//
+//    public void removeProject(Project p){
+//        this.projects.remove(p);
+//        p.setProjectManager(null);
+//    }
 
     public Integer totalNumberOfProjects(){
         return projects.size();

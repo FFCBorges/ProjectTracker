@@ -133,4 +133,17 @@ class TaskAsPlannedServiceTest {
         }
     }
 
+    @Test
+    public void extractTaskByID() {
+        when(taskAsPlannedRepository.findById(33L)).thenReturn(Optional.of(taskAsPlanned));
+        TaskAsPlanned task = taskAsPlannedRepository.findById(33L).get();
+        Assertions.assertEquals(task, taskAsPlanned);
+        try {
+            taskAsPlannedService.extractTaskByID(200L);
+            assert false;
+        } catch (EntityNotFoundOnDB e) {
+            assert true;
+        }
+    }
+
 }

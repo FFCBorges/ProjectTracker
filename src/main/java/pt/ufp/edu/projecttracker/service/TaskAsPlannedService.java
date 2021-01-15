@@ -37,6 +37,15 @@ public class TaskAsPlannedService {
         throw new EntityNotFoundOnDB("Project 404");
     }
 
+    public TaskAsPlanned extractTaskByID(Long id) {
+        Optional<TaskAsPlanned> optionalTask = taskAsPlannedRepository.findById(id);
+        if (optionalTask.isPresent()) {
+            return optionalTask.get();
+        }
+        throw new EntityNotFoundOnDB("Task 404");
+    }
+
+
 
     @Transactional
     public void bindTaskToEmployee (Long id, Employee e){

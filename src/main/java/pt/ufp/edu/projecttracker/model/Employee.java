@@ -44,10 +44,10 @@ public class Employee extends User {
         if(role.equals(Role.SENIOR_DEVELOPER)){
             return 40;
         }
-        if(role.equals(Role.SENIOR_ANALYST)){
+
             return 80;
-        }
-        return -1;
+
+
     }
 
 
@@ -73,14 +73,5 @@ public class Employee extends User {
         }
         return ongoingTasks;
     }
-
-
-
-
-
-
-
-
-
 
 }

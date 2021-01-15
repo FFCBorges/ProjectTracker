@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedBindProjectDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskAsPlannedDTO;
 import pt.ufp.edu.projecttracker.api.request.TaskBindEmployeeDTO;
+import pt.ufp.edu.projecttracker.api.response.TaskOverviewDTOResponse;
 import pt.ufp.edu.projecttracker.model.Employee;
 import pt.ufp.edu.projecttracker.model.TaskAsPlanned;
 import pt.ufp.edu.projecttracker.service.TaskAsPlannedService;
@@ -59,6 +60,14 @@ public class TaskAsPlannedController {
         taskAsPlannedService.createAndBindTaskToProject(taskAsPlanned, projectID, employeeID);
 
     }
+
+    @GetMapping("/overview/{id}")
+    public TaskOverviewDTOResponse getTaskOverview(@PathVariable("id") Long taskID) {
+        TaskAsPlanned task = taskAsPlannedService.extractTaskByID(taskID);
+        return new TaskOverviewDTOResponse(task);
+
+    }
+
 
 
 
