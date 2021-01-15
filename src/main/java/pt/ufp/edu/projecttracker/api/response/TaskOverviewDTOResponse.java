@@ -51,7 +51,6 @@ public class TaskOverviewDTOResponse {
         } else {
             this.timeStatus = "Delayed";
         }
-        String budget = "";
         double budgetDeviation = -(this.estimatedCost * this.executionRate) - (this.currentCost);
         if (budgetDeviation == 0) {
 

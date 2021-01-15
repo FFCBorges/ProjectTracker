@@ -22,6 +22,7 @@ import pt.ufp.edu.projecttracker.service.ProjectService;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,9 +43,8 @@ class ProjectControllerTest {
     private Project project;
     private ProjectManager projectManager;
     private Client client;
-    private TaskAsPlanned taskAsPlanned1;
-    private TaskAsPlanned taskAsPlanned2;
-
+    //private TaskAsPlanned taskAsPlanned1;
+    //private TaskAsPlanned taskAsPlanned2;
 
 
     @BeforeEach
@@ -59,10 +59,10 @@ class ProjectControllerTest {
         project.setName("project");
         project.setProjectManager(projectManager);
         project.setClient(client);
-        taskAsPlanned1 = new TaskAsPlanned("task 1", "do something", 10, project, Role.JUNIOR_ANALYST);
+        TaskAsPlanned taskAsPlanned1 = new TaskAsPlanned("task 1", "do something", 10, project, Role.JUNIOR_ANALYST);
         taskAsPlanned1.setPlannedStartDate(LocalDate.of(2021, 1, 1));
         taskAsPlanned1.setPlannedDueDate(LocalDate.of(2021, 1, 31));
-        taskAsPlanned2 = new TaskAsPlanned("task 2", "do something else", 15, project, Role.SENIOR_DEVELOPER);
+        TaskAsPlanned taskAsPlanned2 = new TaskAsPlanned("task 2", "do something else", 15, project, Role.SENIOR_DEVELOPER);
         taskAsPlanned2.setPlannedStartDate(LocalDate.of(2021, 1, 10));
         taskAsPlanned2.setPlannedDueDate(LocalDate.of(2021, 1, 20));
 
@@ -110,7 +110,7 @@ class ProjectControllerTest {
 
     @Test
     void getProjectValueByID() throws Exception{
-
+        assertNotNull(project);
         when(projectService.getProjectValueByID(1L)).thenReturn(project);
         when(projectService.getProjectValueByID(155L)).thenThrow(EntityNotFoundException404.class);
         mockMvc.perform(get("/project/1/value")).andExpect(status().isOk());
